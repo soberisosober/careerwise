@@ -460,13 +460,13 @@ function App() {
         <div className="w-full bg-white">
           <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
         </div>
-        <div className="flex w-full h-[520px] overflow-hidden select-none">
+        <div className="flex w-full h-[416px] overflow-hidden select-none">
           {/* For Companies */}
           <div
             className={
               `flex flex-col justify-between pl-12 pr-8 py-12 bg-black border-b-4 md:border-b-0 md:border-r-4 border-lime-400 transition-all duration-500 ease-in-out relative cursor-pointer ${
                 hoveredSection === 'companies' ? 'flex-[8] z-10' : hoveredSection === 'candidates' ? 'flex-[2] z-0' : 'flex-1 z-0'
-              }`
+              } h-[416px]`
             }
             onMouseEnter={() => setHoveredSection('companies')}
             onMouseLeave={() => setHoveredSection(null)}
@@ -500,7 +500,7 @@ function App() {
             className={
               `flex flex-col justify-between pl-12 pr-8 py-12 bg-gradient-to-b from-blue-600 to-cyan-400 border-b-4 md:border-b-0 md:border-l-4 border-blue-500 transition-all duration-500 ease-in-out relative cursor-pointer ${
                 hoveredSection === 'candidates' ? 'flex-[8] z-10' : hoveredSection === 'companies' ? 'flex-[2] z-0' : 'flex-1 z-0'
-              }`
+              } h-[416px]`
             }
             onMouseEnter={() => setHoveredSection('candidates')}
             onMouseLeave={() => setHoveredSection(null)}
