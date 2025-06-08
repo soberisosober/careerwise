@@ -277,7 +277,7 @@ function App() {
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <Waves className="h-8 w-8 text-white" />
-                <span className="ml-2 text-2xl font-bold text-white">Career</span>
+                <span className="ml-2 text-2xl font-bold text-white">CareerWise</span>
               </div>
             </div>
             <div className="hidden md:block">
@@ -524,7 +524,7 @@ function App() {
               Success Stories
             </h2>
             <p className="text-xl text-gray-600">
-              Hear from professionals who transformed their careers with Career
+              Hear from professionals who transformed their careers with CareerWise
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -663,7 +663,7 @@ function App() {
             <div className="col-span-2">
               <div className="flex items-center mb-4">
                 <Waves className="h-8 w-8 text-blue-400" />
-                <span className="ml-2 text-2xl font-bold">Career</span>
+                <span className="ml-2 text-2xl font-bold">CareerWise</span>
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
                 Empowering professionals to achieve their career goals through expert coaching,
