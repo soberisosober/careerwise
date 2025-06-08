@@ -2,11 +2,8 @@ import { Buffer } from 'buffer';
 import * as pdfjsLib from 'pdfjs-dist';
 import Tesseract from 'tesseract.js';
 
-// Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
-  import.meta.url
-).toString();
+// Use UMD worker instead of ESM for better compatibility
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
 
 // Common skills for different job roles
 export const jobSkills = {
