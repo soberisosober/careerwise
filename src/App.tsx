@@ -29,8 +29,7 @@ import ResumeUploadSuccess from './components/ResumeUploadSuccess';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
-  const [currentJobIndex, setCurrentJobIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
   const [isProcessingResume, setIsProcessingResume] = useState(false);
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
@@ -40,6 +39,7 @@ function App() {
     message: ''
   });
   const [jobRecommendations, setJobRecommendations] = useState<any[]>([]);
+  const [showResumeModal, setShowResumeModal] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -83,7 +83,7 @@ function App() {
   // Auto-scroll through job listings
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentJobIndex((prevIndex) => (prevIndex + 1) % jobListings.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % jobListings.length);
     }, 3000); // Change every 3 seconds
 
     return () => clearInterval(interval);
@@ -147,13 +147,20 @@ function App() {
   ];
 
   const handleResumeUpload = async (file: File) => {
+    console.log('Starting resume upload process...');
     try {
       setIsProcessingResume(true);
+      console.log('Processing resume file:', file.name);
+      
       // Get job recommendations based on resume
       const recommendations = await getJobRecommendations(file);
+      console.log('Received job recommendations:', recommendations.length);
+      
       setJobRecommendations(recommendations);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
+      setShowResumeModal(false);
+      console.log('Resume processing completed successfully');
     } catch (error) {
       console.error('Error processing resume:', error);
       // Handle error appropriately
@@ -163,7 +170,13 @@ function App() {
   };
 
   const handleViewJobs = () => {
+    console.log('User clicked "View Job Matches"');
     setShowSuccessScreen(false);
+  };
+
+  const handleStartJourney = () => {
+    console.log('User clicked "Start Your Journey"');
+    setShowResumeModal(true);
   };
 
   // If showing success screen, render only that
@@ -233,14 +246,16 @@ function App() {
               <p className="text-xl text-black mb-8 max-w-2xl">
                 Explore the latest roles in data, engineering, product, and beyond.
               </p>
-              {!isResumeUploaded && (
-                <button
-                  onClick={() => setIsResumeModalOpen(true)}
-                  className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center group"
-                >
-                  Start Your Journey
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+              {!isResumeUploaded && !showResumeModal && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={handleStartJourney}
+                    className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center mx-auto"
+                  >
+                    Start Your Journey
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </button>
+                </div>
               )}
             </div>
 
@@ -251,9 +266,9 @@ function App() {
                   <div 
                     key={index} 
                     className={`transform transition-all duration-500 ${
-                      index === currentJobIndex 
+                      index === currentIndex 
                         ? 'opacity-100 translate-y-0' 
-                        : index === (currentJobIndex + 1) % jobListings.length
+                        : index === (currentIndex + 1) % jobListings.length
                         ? 'opacity-50 translate-y-4'
                         : 'opacity-0 translate-y-8 hidden'
                     }`}
@@ -279,7 +294,7 @@ function App() {
                   <div
                     key={index}
                     className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentJobIndex ? 'bg-blue-600' : 'bg-gray-300'
+                      index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
                     }`}
                   />
                 ))}
@@ -569,8 +584,8 @@ function App() {
 
       {/* Resume Upload Modal */}
       <ResumeUploadModal
-        isOpen={isResumeModalOpen}
-        onClose={() => setIsResumeModalOpen(false)}
+        isOpen={showResumeModal}
+        onClose={() => setShowResumeModal(false)}
         onUpload={handleResumeUpload}
         isProcessing={isProcessingResume}
       />
