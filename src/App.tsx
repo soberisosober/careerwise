@@ -115,44 +115,6 @@ const sampleJobs = [
   }
 ];
 
-// Test function to simulate resume upload
-async function testResumeUpload() {
-  console.log('=== Starting Test Resume Upload ===');
-  
-  // Create a sample file
-  const sampleFile = new File([''], 'test-resume.pdf', { type: 'application/pdf' });
-  
-  // Simulate skill extraction
-  const extractedSkills = [
-    'JavaScript',
-    'React',
-    'Node.js',
-    'Python',
-    'SQL',
-    'AWS',
-    'System Design',
-    'TypeScript',
-    'REST APIs',
-    'Git'
-  ];
-  
-  console.log('Test extracted skills:', extractedSkills);
-  
-  // Test job matching
-  const matchedJobs = await get_JobRecommendations(sampleFile);
-  console.log('Test matched jobs:', matchedJobs.map((job: any) => ({
-    title: job.title,
-    matchScore: job.matchScore,
-    matchingSkills: job.matchingSkills
-  })));
-  
-  return {
-    file: sampleFile,
-    skills: extractedSkills,
-    jobs: matchedJobs
-  };
-}
-
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -288,15 +250,12 @@ function App() {
     setIsProcessingResume(true);
     
     try {
-      // Simulate processing delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Get job recommendations based on the uploaded resume
+      const recommendations = await get_JobRecommendations(file);
+      console.log('Job recommendations:', recommendations);
       
-      // Get job recommendations
-      const matchedJobs = await get_JobRecommendations(file);
-      console.log('Matched jobs:', matchedJobs);
-      
-      // Update state
-      setJobRecommendations(matchedJobs);
+      // Update state with recommendations
+      setJobRecommendations(recommendations);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
       setShowResumeModal(false);
@@ -310,34 +269,17 @@ function App() {
   };
 
   const handleViewJobs = () => {
-    console.log('User clicked to view jobs');
-    console.log('Current job recommendations:', jobRecommendations);
     setShowSuccessScreen(false);
   };
 
   const handleStartJourney = () => {
-    console.log('=== Start Journey Process Started ===');
-    console.log('Step 1: User clicked "Start Your Journey"');
     setShowResumeModal(true);
-    console.log('Step 2: Resume upload modal opened');
-    console.log('State updated:', {
-      showResumeModal: true
-    });
-    console.log('=== Start Journey Process Completed ===');
   };
 
   const handleReset = () => {
-    console.log('Resetting application state');
     setIsResumeUploaded(false);
     setShowSuccessScreen(false);
-    setIsModalOpen(true);
-  };
-
-  // Test the resume upload process
-  const handleTestUpload = async () => {
-    console.log('=== Starting Test Upload ===');
-    const testResult = await testResumeUpload();
-    await handleResumeUpload(testResult.file);
+    setJobRecommendations(sampleJobs);
   };
 
   // Debug logging for state changes
