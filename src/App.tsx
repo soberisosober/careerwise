@@ -26,6 +26,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { get_JobRecommendations } from './utils/resumeParser';
 import JobRecommendations from './components/JobRecommendations';
+import ImageWithPlaceholder from './components/ImageWithPlaceholder';
 
 // Sample analysis data
 const sampleAnalysis = {
@@ -598,7 +599,7 @@ function App() {
               onMouseMove={handleRagMouseMove}
               onMouseLeave={handleRagMouseLeave}
             >
-              <img
+              <ImageWithPlaceholder
                 src="/rag-token-count.png"
                 alt="RAG Model Token Count (Cartoonish Style)"
                 className="w-full h-96 object-contain rounded-3xl border-4 border-gray-200 shadow-lg bg-white transition-transform duration-300"
@@ -607,6 +608,7 @@ function App() {
                     ? `perspective(900px) rotateY(${ragTilt.x * 18}deg) rotateX(${-ragTilt.y * 18}deg)`
                     : 'perspective(900px) rotateY(0deg) rotateX(0deg)',
                 }}
+                placeholderSrc="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5BSSBNb2RlbCBWaXN1YWxpemF0aW9uPC90ZXh0Pjwvc3ZnPg=="
               />
             </div>
           </div>
