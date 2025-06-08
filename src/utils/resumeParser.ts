@@ -2,13 +2,20 @@ import { Buffer } from 'buffer';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import Tesseract from 'tesseract.js';
 
-// Create a Blob-based worker inline (works in Vite + StackBlitz)
-const workerBlob = new Blob(
-  [await (await fetch('https://unpkg.com/pdfjs-dist@3.11.174/legacy/build/pdf.worker.js')).text()],
-  { type: 'application/javascript' }
-);
-const blobUrl = URL.createObjectURL(workerBlob);
-pdfjsLib.GlobalWorkerOptions.workerSrc = blobUrl;
+// Initialize PDF.js worker
+let isWorkerInitialized = false;
+
+async function initializePdfWorker() {
+  if (isWorkerInitialized) return;
+  
+  const workerBlob = new Blob(
+    [await (await fetch('https://unpkg.com/pdfjs-dist@3.11.174/legacy/build/pdf.worker.js')).text()],
+    { type: 'application/javascript' }
+  );
+  const blobUrl = URL.createObjectURL(workerBlob);
+  pdfjsLib.GlobalWorkerOptions.workerSrc = blobUrl;
+  isWorkerInitialized = true;
+}
 
 // Type for job skills mapping
 type JobSkillsMap = {
@@ -212,39 +219,22 @@ export const jobListings = [
 ];
 
 export const extractTextFromPDF = async (file: File): Promise<string> => {
-  try {
-    console.log('Starting PDF text extraction...');
+  await initializePdfWorker();
+  
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let fullText = '';
 
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
-    if (!pdf || pdf.numPages === 0) {
-      throw new Error('PDF appears to be empty or not properly parsed');
-    }
-
-    let fullText = '';
-    
-    // Extract text from each page
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const pageText = textContent.items
-        .map((item: any) => item.str)
-        .join(' ');
-      
-      fullText += pageText + '\n';
-      console.log(`Extracted text from page ${i}`);
-    }
-
-    console.log('PDF text extraction complete');
-    console.log('Extracted text length:', fullText.length);
-    console.log('First 200 characters:', fullText.substring(0, 200));
-
-    return fullText;
-  } catch (error) {
-    console.error('Error extracting text from PDF:', error);
-    throw new Error('PDF text extraction failed: ' + (error as Error).message);
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items
+      .map((item: any) => item.str)
+      .join(' ');
+    fullText += pageText + '\n';
   }
+
+  return fullText;
 };
 
 // Function to extract skills from resume text
@@ -362,26 +352,19 @@ function findMatchingJobsWithScore(resumeKeywords: string[], prompt?: string) {
 
 export const get_JobRecommendations = async (file: File, prompt?: string) => {
   try {
-    console.log('=== Starting Job Recommendations Process ===');
-    console.log('Input file:', file.name, file.type, file.size);
-    if (prompt) console.log('Filter prompt:', prompt);
+    console.log('Starting job recommendations process...');
+    const text = await extractTextFromPDF(file);
+    console.log('Text extracted from PDF');
     
-    // Extract text from resume
-    const resumeText = await extractTextFromPDF(file);
-    console.log('Resume text extracted:', resumeText.substring(0, 200) + '...');
+    const skills = extractSkills(text);
+    console.log('Skills extracted:', skills);
     
-    // Extract skills from the text
-    const resumeSkills = extractSkills(resumeText);
-    console.log('Extracted skills:', resumeSkills);
+    const matchingJobs = findMatchingJobsWithScore(skills, prompt);
+    console.log('Found matching jobs:', matchingJobs.length);
     
-    // Get filtered and scored recommendations
-    const recommendations = findMatchingJobsWithScore(resumeSkills, prompt);
-    console.log('Final recommendations:', recommendations.length, 'jobs');
-    console.log('=== Job Recommendations Process Complete ===');
-    
-    return recommendations;
+    return matchingJobs;
   } catch (error) {
     console.error('Error in get_JobRecommendations:', error);
-    throw error;
+    throw new Error('Failed to process resume: ' + (error as Error).message);
   }
 }; 
