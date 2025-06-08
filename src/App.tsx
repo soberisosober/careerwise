@@ -1,29 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Menu, 
-  X, 
-  ArrowRight, 
-  Users, 
-  Target, 
-  TrendingUp, 
-  Award, 
-  CheckCircle, 
-  Star,
-  Phone,
-  Mail,
-  MapPin,
-  Send,
-  Briefcase,
-  BookOpen,
-  MessageSquare,
-  Waves,
-  ChevronLeft,
-  ChevronRight,
-  FileText,
-  Upload,
-  LucideIcon,
-  Loader2
-} from 'lucide-react';
+  FaBars,
+  FaTimes,
+  FaArrowRight,
+  FaUsers,
+  FaBullseye,
+  FaChartLine,
+  FaAward,
+  FaCheckCircle,
+  FaStar,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaPaperPlane,
+  FaBriefcase,
+  FaBookOpen,
+  FaComments,
+  FaWaveSquare,
+  FaChevronLeft,
+  FaChevronRight,
+  FaFileAlt,
+  FaUpload,
+  FaSpinner
+} from 'react-icons/fa';
 import { get_JobRecommendations } from './utils/resumeParser';
 import JobRecommendations from './components/JobRecommendations';
 
@@ -194,7 +193,7 @@ function App() {
   }, [jobListings.length]);
 
   interface Service {
-    icon: LucideIcon;
+    icon: React.ComponentType<{ className?: string }>;
     title: string;
     description: string;
     features: string[];
@@ -202,25 +201,25 @@ function App() {
 
   const services: Service[] = [
     {
-      icon: Briefcase,
+      icon: FaBriefcase,
       title: "Career Coaching",
       description: "Personalized one-on-one coaching sessions to help you identify your strengths, set career goals, and develop actionable strategies for professional success.",
       features: ["Goal Setting", "Skills Assessment", "Action Planning", "Progress Tracking"]
     },
     {
-      icon: BookOpen,
+      icon: FaBookOpen,
       title: "Resume & LinkedIn Optimization",
       description: "Professional resume writing and LinkedIn profile optimization to showcase your skills and experience effectively.",
       features: ["ATS Optimization", "Keyword Research", "Profile Enhancement", "Industry Standards"]
     },
     {
-      icon: MessageSquare,
+      icon: FaComments,
       title: "Interview Preparation",
       description: "Comprehensive interview preparation including mock interviews, feedback, and strategies for different interview types.",
       features: ["Mock Interviews", "Behavioral Questions", "Technical Interviews", "Salary Negotiation"]
     },
     {
-      icon: Waves,
+      icon: FaWaveSquare,
       title: "Career Transition Support",
       description: "Guidance and support for career changes, including industry research, skill development, and networking strategies.",
       features: ["Industry Analysis", "Skill Mapping", "Network Building", "Transition Planning"]
@@ -304,10 +303,11 @@ function App() {
   };
 
   const handleRagMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!ragTilt.hovering) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 to 1
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2; // -1 to 1
-    setRagTilt({ x, y, hovering: true });
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setRagTilt({ x: x * 20, y: y * 20, hovering: true });
   };
 
   const handleRagMouseLeave = () => setRagTilt({ x: 0, y: 0, hovering: false });
@@ -320,7 +320,9 @@ function App() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <Waves className="h-8 w-8 text-white" />
+                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 mb-4">
+                  <FaWaveSquare className="h-8 w-8 text-white" />
+                </div>
                 <span className="ml-2 text-2xl font-bold text-white">CareerWise</span>
               </div>
             </div>
@@ -343,7 +345,7 @@ function App() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-lg text-white hover:text-gray-300 focus:outline-none"
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMenuOpen ? <FaTimes className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
               </button>
             </div>
           </div>
@@ -388,7 +390,7 @@ function App() {
                     className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center"
                   >
                     Start Your Journey
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <FaArrowRight className="ml-2 h-5 w-5" />
                   </button>
                 </div>
               )}
@@ -413,7 +415,7 @@ function App() {
                     <h3 className="text-xl font-bold text-black mb-1">{job.title}</h3>
                     <p className="text-gray-600 mb-3">{job.company}</p>
                     <div className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      <FaCheckCircle className="h-4 w-4 text-green-500 mr-2" />
                       <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                         {job.status}
                       </span>
@@ -446,7 +448,7 @@ function App() {
             className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
           >
             Start Your Journey
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <FaArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </section>
@@ -626,7 +628,7 @@ function App() {
               <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    <FaStar key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
                 <p className="text-gray-600 mb-6 leading-relaxed">"{testimonial.content}"</p>
@@ -658,7 +660,7 @@ function App() {
               <div className="space-y-6">
                 <div className="flex items-center">
                   <div className="bg-blue-100 p-3 rounded-xl mr-4">
-                    <Phone className="h-6 w-6 text-blue-600" />
+                    <FaPhone className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
@@ -667,7 +669,7 @@ function App() {
                 </div>
                 <div className="flex items-center">
                   <div className="bg-green-100 p-3 rounded-xl mr-4">
-                    <Mail className="h-6 w-6 text-green-600" />
+                    <FaEnvelope className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Email</p>
@@ -676,7 +678,7 @@ function App() {
                 </div>
                 <div className="flex items-center">
                   <div className="bg-yellow-100 p-3 rounded-xl mr-4">
-                    <MapPin className="h-6 w-6 text-yellow-600" />
+                    <FaMapMarkerAlt className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Location</p>
@@ -742,7 +744,7 @@ function App() {
                   className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center group"
                 >
                   Send Message
-                  <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <FaPaperPlane className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
             </div>
@@ -756,7 +758,9 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-2">
               <div className="flex items-center mb-4">
-                <Waves className="h-8 w-8 text-blue-400" />
+                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 mb-4">
+                  <FaWaveSquare className="h-8 w-8 text-white" />
+                </div>
                 <span className="ml-2 text-2xl font-bold">CareerWise</span>
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
@@ -765,10 +769,10 @@ function App() {
               </p>
               <div className="flex space-x-4">
                 <div className="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
-                  <Phone className="h-5 w-5" />
+                  <FaPhone className="h-5 w-5" />
                 </div>
                 <div className="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
-                  <Mail className="h-5 w-5" />
+                  <FaEnvelope className="h-5 w-5" />
                 </div>
               </div>
             </div>
@@ -816,7 +820,7 @@ function App() {
                 onClick={() => setShowResultsModal(false)}
                 className="text-gray-500 hover:text-gray-700"
               >
-                <X className="w-6 h-6" />
+                <FaTimes className="w-6 h-6" />
               </button>
             </div>
             
@@ -875,7 +879,7 @@ function App() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl p-8 max-w-md w-full">
             <div className="text-center mb-6">
-              <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
+              <FaSpinner className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Processing Your Resume</h2>
               <p className="text-gray-600">{processingSteps[processingStep].text}...</p>
             </div>
