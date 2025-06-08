@@ -608,7 +608,7 @@ function App() {
                     ? `perspective(900px) rotateY(${ragTilt.x * 18}deg) rotateX(${-ragTilt.y * 18}deg)`
                     : 'perspective(900px) rotateY(0deg) rotateX(0deg)',
                 }}
-                placeholderSrc="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5BSSBNb2RlbCBWaXN1YWxpemF0aW9uPC90ZXh0Pjwvc3ZnPg=="
+                placeholderSrc="/rag-placeholder.png"
               />
             </div>
           </div>
