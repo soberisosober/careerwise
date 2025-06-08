@@ -115,6 +115,44 @@ const sampleJobs = [
   }
 ];
 
+// Test function to simulate resume upload
+async function testResumeUpload() {
+  console.log('=== Starting Test Resume Upload ===');
+  
+  // Create a sample file
+  const sampleFile = new File([''], 'test-resume.pdf', { type: 'application/pdf' });
+  
+  // Simulate skill extraction
+  const extractedSkills = [
+    'JavaScript',
+    'React',
+    'Node.js',
+    'Python',
+    'SQL',
+    'AWS',
+    'System Design',
+    'TypeScript',
+    'REST APIs',
+    'Git'
+  ];
+  
+  console.log('Test extracted skills:', extractedSkills);
+  
+  // Test job matching
+  const matchedJobs = findMatchingJobs(extractedSkills);
+  console.log('Test matched jobs:', matchedJobs.map(job => ({
+    title: job.title,
+    matchScore: job.matchScore,
+    matchingSkills: job.matchingSkills
+  })));
+  
+  return {
+    file: sampleFile,
+    skills: extractedSkills,
+    jobs: matchedJobs
+  };
+}
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -291,6 +329,7 @@ function App() {
 
   const handleViewJobs = () => {
     console.log('User clicked to view jobs');
+    console.log('Current job recommendations:', jobRecommendations);
     setShowSuccessScreen(false);
   };
 
@@ -312,16 +351,22 @@ function App() {
     setIsModalOpen(true);
   };
 
-  // Log state changes
+  // Test the resume upload process
+  const handleTestUpload = async () => {
+    console.log('=== Starting Test Upload ===');
+    const testResult = await testResumeUpload();
+    await handleResumeUpload(testResult.file);
+  };
+
+  // Debug logging for state changes
   useEffect(() => {
-    console.log('State changed:', {
+    console.log('State updated:', {
       isResumeUploaded,
-      isProcessingResume,
       showSuccessScreen,
-      showResumeModal,
+      isModalOpen,
       jobRecommendationsCount: jobRecommendations.length
     });
-  }, [isResumeUploaded, isProcessingResume, showSuccessScreen, showResumeModal, jobRecommendations]);
+  }, [isResumeUploaded, showSuccessScreen, isModalOpen, jobRecommendations]);
 
   // If showing success screen, render only that
   if (showSuccessScreen) {
@@ -827,8 +872,9 @@ function findMatchingJobs(skills: string[]): typeof sampleJobs {
   
   // Convert all skills to lowercase for case-insensitive matching
   const normalizedSkills = skills.map(skill => skill.toLowerCase());
+  console.log('Normalized skills:', normalizedSkills);
   
-  return sampleJobs.map(job => {
+  const matchedJobs = sampleJobs.map(job => {
     // Find matching skills for this job
     const matchingSkills = job.matchingSkills.filter(skill => 
       normalizedSkills.some(s => s.includes(skill.toLowerCase()))
@@ -846,6 +892,9 @@ function findMatchingJobs(skills: string[]): typeof sampleJobs {
       matchingSkills
     };
   }).sort((a, b) => b.matchScore - a.matchScore);
+
+  console.log('Final matched jobs:', matchedJobs);
+  return matchedJobs;
 }
 
 export default App;
