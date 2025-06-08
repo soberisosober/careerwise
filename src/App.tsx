@@ -135,6 +135,7 @@ function App() {
   const [processingStep, setProcessingStep] = useState(0);
   const [processingProgress, setProcessingProgress] = useState(0);
   const [hoveredSection, setHoveredSection] = useState<'companies' | 'candidates' | null>(null);
+  const [statsPaused, setStatsPaused] = useState(false);
 
   const processingSteps = [
     { text: "Uploading File", duration: 1000 },
@@ -424,7 +425,7 @@ function App() {
             </div>
           </div>
           {/* Bottom CTA Section */}
-          <div className="absolute bottom-0 left-0 right-0 bg-black text-white py-8">
+          <div className="bg-black text-white py-16 w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row items-center justify-between">
                 <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
@@ -442,15 +443,24 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600" style={{height: '120px'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-white">{stat.number}</div>
-                <div className="mt-2 text-blue-100">{stat.label}</div>
-              </div>
-            ))}
+      <section className="py-16 bg-blue-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+          <div
+            className="relative w-full"
+            onMouseEnter={() => setStatsPaused(true)}
+            onMouseLeave={() => setStatsPaused(false)}
+          >
+            <div
+              className={`flex gap-8 whitespace-nowrap transition-transform duration-700 ease-linear ${statsPaused ? '' : 'animate-stats-scroll'}`}
+              style={{ willChange: 'transform' }}
+            >
+              {stats.concat(stats).map((stat, index) => (
+                <div key={index} className="text-center min-w-[260px]">
+                  <div className="text-3xl lg:text-4xl font-bold text-white">{stat.number}</div>
+                  <div className="mt-2 text-blue-100">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
