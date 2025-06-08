@@ -21,7 +21,8 @@ import {
   ChevronRight,
   FileText,
   Upload,
-  LucideIcon
+  LucideIcon,
+  Loader2
 } from 'lucide-react';
 import { get_JobRecommendations } from './utils/resumeParser';
 import JobRecommendations from './components/JobRecommendations';
@@ -119,7 +120,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
-  const [isProcessingResume, setIsProcessingResume] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -131,6 +132,15 @@ function App() {
   const [analysis, setAnalysis] = useState(sampleAnalysis);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showResultsModal, setShowResultsModal] = useState(false);
+  const [processingStep, setProcessingStep] = useState(0);
+  const [processingProgress, setProcessingProgress] = useState(0);
+
+  const processingSteps = [
+    { text: "Uploading File", duration: 1000 },
+    { text: "Decrypting", duration: 1500 },
+    { text: "Extracting Information", duration: 2000 },
+    { text: "Filtering Jobs", duration: 1500 }
+  ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -252,18 +262,40 @@ function App() {
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setIsProcessingResume(true);
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setIsProcessing(true);
+      setProcessingStep(0);
+      setProcessingProgress(0);
+      
+      // Simulate processing steps
+      for (let i = 0; i < processingSteps.length; i++) {
+        setProcessingStep(i);
+        const step = processingSteps[i];
+        const progressIncrement = 100 / processingSteps.length;
+        
+        // Simulate progress within each step
+        const interval = setInterval(() => {
+          setProcessingProgress(prev => {
+            const newProgress = prev + (progressIncrement / 10);
+            return newProgress > (i + 1) * progressIncrement ? (i + 1) * progressIncrement : newProgress;
+          });
+        }, step.duration / 10);
+
+        await new Promise(resolve => setTimeout(resolve, step.duration));
+        clearInterval(interval);
+      }
+
+      // Process the actual file
       try {
-        const recommendations = await get_JobRecommendations(file);
+        const recommendations = await get_JobRecommendations(file, '');
         setJobRecommendations(recommendations);
         setIsResumeUploaded(true);
         setShowResultsModal(true);
       } catch (error) {
         console.error('Error processing resume:', error);
       } finally {
-        setIsProcessingResume(false);
+        setIsProcessing(false);
       }
     }
   };
@@ -772,6 +804,31 @@ function App() {
               >
                 Close
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Processing Modal */}
+      {isProcessing && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full">
+            <div className="text-center mb-6">
+              <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Processing Your Resume</h2>
+              <p className="text-gray-600">{processingSteps[processingStep].text}...</p>
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+              <div 
+                className="bg-blue-600 h-2.5 rounded-full transition-all duration-300 ease-in-out"
+                style={{ width: `${processingProgress}%` }}
+              ></div>
+            </div>
+            
+            <div className="text-center text-sm text-gray-500">
+              {Math.round(processingProgress)}% Complete
             </div>
           </div>
         </div>
