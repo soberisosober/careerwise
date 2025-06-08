@@ -134,6 +134,7 @@ function App() {
   const [showResultsModal, setShowResultsModal] = useState(false);
   const [processingStep, setProcessingStep] = useState(0);
   const [processingProgress, setProcessingProgress] = useState(0);
+  const [hoveredSection, setHoveredSection] = useState<'companies' | 'candidates' | null>(null);
 
   const processingSteps = [
     { text: "Uploading File", duration: 1000 },
@@ -454,13 +455,23 @@ function App() {
         </div>
       </section>
 
-      {/* Services Section - New Design */}
+      {/* Services Section - Animated Hover Expand */}
       <section id="services" className="py-0">
         <div className="w-full bg-white">
           <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-          <div className="bg-black flex flex-col justify-between h-[520px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
+        <div className="flex w-full h-[520px] overflow-hidden select-none">
+          {/* For Companies */}
+          <div
+            className={
+              `flex flex-col justify-between pl-12 pr-8 py-12 bg-black border-b-4 md:border-b-0 md:border-r-4 border-lime-400 transition-all duration-500 ease-in-out relative cursor-pointer ${
+                hoveredSection === 'companies' ? 'flex-[8] z-10' : hoveredSection === 'candidates' ? 'flex-[2] z-0' : 'flex-1 z-0'
+              }`
+            }
+            onMouseEnter={() => setHoveredSection('companies')}
+            onMouseLeave={() => setHoveredSection(null)}
+            tabIndex={0}
+          >
             <h3 className="text-4xl md:text-5xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Companies</h3>
             <ul className="space-y-1">
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
@@ -483,9 +494,17 @@ function App() {
               </li>
             </ul>
           </div>
-
           {/* For Candidates */}
-          <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between h-[520px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
+          <div
+            className={
+              `flex flex-col justify-between pl-12 pr-8 py-12 bg-gradient-to-b from-blue-600 to-cyan-400 border-b-4 md:border-b-0 md:border-l-4 border-blue-500 transition-all duration-500 ease-in-out relative cursor-pointer ${
+                hoveredSection === 'candidates' ? 'flex-[8] z-10' : hoveredSection === 'companies' ? 'flex-[2] z-0' : 'flex-1 z-0'
+              }`
+            }
+            onMouseEnter={() => setHoveredSection('candidates')}
+            onMouseLeave={() => setHoveredSection(null)}
+            tabIndex={0}
+          >
             <h3 className="text-4xl md:text-5xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Candidates</h3>
             <ul className="space-y-1">
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
