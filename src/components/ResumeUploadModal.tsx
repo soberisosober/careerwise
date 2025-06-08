@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Upload, FileText } from 'lucide-react';
 
 interface ResumeUploadModalProps {
@@ -14,47 +14,81 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
   onUpload,
   isProcessing
 }) => {
+  console.log('ResumeUploadModal rendered:', { isOpen, isProcessing });
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string>('');
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('File selection event triggered');
+    console.log('=== File Selection Process Started ===');
+    console.log('Step 1: File selection event triggered');
     const file = event.target.files?.[0];
     
     if (file) {
-      console.log('File selected:', file.name);
+      console.log('Step 2: File selected', {
+        name: file.name,
+        type: file.type,
+        size: `${(file.size / 1024).toFixed(2)} KB`
+      });
+
       // Check file type
       const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
       if (!validTypes.includes(file.type)) {
-        console.log('Invalid file type:', file.type);
+        console.log('Step 3: Invalid file type detected', {
+          fileType: file.type,
+          validTypes
+        });
         setError('Please upload a PDF or Word document');
         setSelectedFile(null);
         return;
       }
       
+      console.log('Step 3: File validation passed');
       setError('');
       setSelectedFile(file);
-      console.log('File validated and set');
+      console.log('Step 4: File state updated successfully');
     }
+    console.log('=== File Selection Process Completed ===');
   };
 
   const handleUpload = async () => {
-    console.log('Upload button clicked');
+    console.log('=== Upload Process Started ===');
+    console.log('Step 1: Upload button clicked');
+    
     if (!selectedFile) {
-      console.log('No file selected for upload');
+      console.log('Step 2: No file selected for upload');
       setError('Please select a file first');
       return;
     }
 
     try {
-      console.log('Starting file upload process');
+      console.log('Step 2: Starting file upload process', {
+        fileName: selectedFile.name,
+        fileType: selectedFile.type,
+        fileSize: `${(selectedFile.size / 1024).toFixed(2)} KB`
+      });
+      
       await onUpload(selectedFile);
-      console.log('File upload completed successfully');
+      console.log('Step 3: File upload completed successfully');
     } catch (error) {
-      console.error('Error during file upload:', error);
+      console.error('Step 3: Error during file upload:', error);
       setError('Failed to upload file. Please try again.');
     }
+    console.log('=== Upload Process Completed ===');
   };
+
+  // Log state changes
+  useEffect(() => {
+    console.log('ResumeUploadModal state changed:', {
+      selectedFile: selectedFile ? {
+        name: selectedFile.name,
+        type: selectedFile.type,
+        size: `${(selectedFile.size / 1024).toFixed(2)} KB`
+      } : null,
+      error,
+      isProcessing
+    });
+  }, [selectedFile, error, isProcessing]);
 
   if (!isOpen) return null;
 

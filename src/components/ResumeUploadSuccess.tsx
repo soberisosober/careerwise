@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface ResumeUploadSuccessProps {
@@ -6,9 +6,23 @@ interface ResumeUploadSuccessProps {
 }
 
 const ResumeUploadSuccess: React.FC<ResumeUploadSuccessProps> = ({ onViewJobs }) => {
+  console.log('ResumeUploadSuccess rendered');
+
+  useEffect(() => {
+    console.log('=== Success Screen Displayed ===');
+    console.log('Step 1: Success screen mounted');
+    console.log('Step 2: Ready for user interaction');
+    return () => {
+      console.log('=== Success Screen Unmounted ===');
+    };
+  }, []);
+
   const handleViewJobs = () => {
-    console.log('User clicked "View Job Matches" from success screen');
+    console.log('=== View Jobs Action Started ===');
+    console.log('Step 1: User clicked "View Job Matches" from success screen');
     onViewJobs();
+    console.log('Step 2: View jobs callback triggered');
+    console.log('=== View Jobs Action Completed ===');
   };
 
   return (

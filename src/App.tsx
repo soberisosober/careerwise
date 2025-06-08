@@ -41,6 +41,15 @@ function App() {
   const [jobRecommendations, setJobRecommendations] = useState<any[]>([]);
   const [showResumeModal, setShowResumeModal] = useState(false);
 
+  // Log initial state
+  console.log('App initialized with states:', {
+    isResumeUploaded,
+    isProcessingResume,
+    showSuccessScreen,
+    showResumeModal,
+    jobRecommendationsCount: jobRecommendations.length
+  });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -147,37 +156,80 @@ function App() {
   ];
 
   const handleResumeUpload = async (file: File) => {
-    console.log('Starting resume upload process...');
+    console.log('=== Resume Upload Process Started ===');
+    console.log('Step 1: Starting resume upload process');
+    console.log('File details:', {
+      name: file.name,
+      type: file.type,
+      size: `${(file.size / 1024).toFixed(2)} KB`
+    });
+
     try {
       setIsProcessingResume(true);
-      console.log('Processing resume file:', file.name);
+      console.log('Step 2: Processing resume file');
       
       // Get job recommendations based on resume
       const recommendations = await getJobRecommendations(file);
-      console.log('Received job recommendations:', recommendations.length);
+      console.log('Step 3: Received job recommendations', {
+        count: recommendations.length,
+        matches: recommendations.map(job => ({
+          title: job.title,
+          matchScore: job.matchScore
+        }))
+      });
       
       setJobRecommendations(recommendations);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
       setShowResumeModal(false);
-      console.log('Resume processing completed successfully');
+      console.log('Step 4: Resume processing completed successfully');
+      console.log('State updated:', {
+        isResumeUploaded: true,
+        showSuccessScreen: true,
+        showResumeModal: false
+      });
     } catch (error) {
-      console.error('Error processing resume:', error);
+      console.error('Error in resume processing:', error);
       // Handle error appropriately
     } finally {
       setIsProcessingResume(false);
+      console.log('=== Resume Upload Process Completed ===');
     }
   };
 
   const handleViewJobs = () => {
-    console.log('User clicked "View Job Matches"');
+    console.log('=== View Jobs Process Started ===');
+    console.log('Step 1: User clicked "View Job Matches"');
     setShowSuccessScreen(false);
+    console.log('Step 2: Success screen hidden, showing job recommendations');
+    console.log('State updated:', {
+      showSuccessScreen: false,
+      isResumeUploaded: true
+    });
+    console.log('=== View Jobs Process Completed ===');
   };
 
   const handleStartJourney = () => {
-    console.log('User clicked "Start Your Journey"');
+    console.log('=== Start Journey Process Started ===');
+    console.log('Step 1: User clicked "Start Your Journey"');
     setShowResumeModal(true);
+    console.log('Step 2: Resume upload modal opened');
+    console.log('State updated:', {
+      showResumeModal: true
+    });
+    console.log('=== Start Journey Process Completed ===');
   };
+
+  // Log state changes
+  useEffect(() => {
+    console.log('State changed:', {
+      isResumeUploaded,
+      isProcessingResume,
+      showSuccessScreen,
+      showResumeModal,
+      jobRecommendationsCount: jobRecommendations.length
+    });
+  }, [isResumeUploaded, isProcessingResume, showSuccessScreen, showResumeModal, jobRecommendations]);
 
   // If showing success screen, render only that
   if (showSuccessScreen) {
