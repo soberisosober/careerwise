@@ -107,7 +107,7 @@ function App() {
       name: "Sarah Johnson",
       role: "Marketing Manager",
       company: "TechCorp",
-      content: "CareerWise helped me transition from retail to tech marketing. Their guidance was invaluable in landing my dream job with a 40% salary increase.",
+      content: "Career helped me transition from retail to tech marketing. Their guidance was invaluable in landing my dream job with a 40% salary increase.",
       rating: 5
     },
     {
@@ -142,7 +142,7 @@ function App() {
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <Waves className="h-8 w-8 text-white" />
-                <span className="ml-2 text-2xl font-bold text-white">CareerWise</span>
+                <span className="ml-2 text-2xl font-bold text-white">Career</span>
               </div>
             </div>
             
@@ -188,7 +188,7 @@ function App() {
             {/* Left Content */}
             <div className="lg:col-span-2 text-left py-20">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black leading-tight mb-8">
-                CareerWise links<br />
+                Career links<br />
                 you to your next big<br />
                 <span className="block">career opportunity.</span>
               </h1>
@@ -317,7 +317,7 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Why Choose CareerWise?
+                Why Choose Career?
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 With over a decade of experience in career development and talent acquisition, 
@@ -378,7 +378,7 @@ function App() {
               Success Stories
             </h2>
             <p className="text-xl text-gray-600">
-              Hear from professionals who transformed their careers with CareerWise
+              Hear from professionals who transformed their careers with Career
             </p>
           </div>
 
@@ -435,7 +435,7 @@ function App() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Email</p>
-                    <p className="text-gray-600">hello@careerwise.com</p>
+                    <p className="text-gray-600">hello@career.com</p>
                   </div>
                 </div>
                 
@@ -527,7 +527,7 @@ function App() {
             <div className="col-span-2">
               <div className="flex items-center mb-4">
                 <Waves className="h-8 w-8 text-blue-400" />
-                <span className="ml-2 text-2xl font-bold">CareerWise</span>
+                <span className="ml-2 text-2xl font-bold">Career</span>
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
                 Empowering professionals to achieve their career goals through expert coaching, 
@@ -565,7 +565,7 @@ function App() {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 CareerWise. All rights reserved.</p>
+            <p>&copy; 2024 Career. All rights reserved.</p>
           </div>
         </div>
       </footer>
