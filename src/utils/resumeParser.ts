@@ -1,5 +1,8 @@
 import { Buffer } from 'buffer';
-import pdfParse from 'pdf-parse';
+import * as pdfjsLib from 'pdfjs-dist';
+
+// Initialize PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 // Common skills for different job roles
 export const jobSkills = {
@@ -186,20 +189,29 @@ export const extractTextFromPDF = async (file: File): Promise<string> => {
     // Convert File to ArrayBuffer
     const arrayBuffer = await file.arrayBuffer();
     
-    // Convert ArrayBuffer to Buffer (required by pdf-parse)
-    const buffer = Buffer.from(arrayBuffer);
+    // Load the PDF document
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    console.log('PDF loaded, number of pages:', pdf.numPages);
     
-    // Parse PDF
-    const data = await pdfParse(buffer);
+    let fullText = '';
     
-    // Extract text
-    const text = data.text;
+    // Extract text from each page
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items
+        .map((item: any) => item.str)
+        .join(' ');
+      fullText += pageText + '\n';
+      
+      console.log(`Extracted text from page ${i}`);
+    }
     
     console.log('PDF text extraction complete');
-    console.log('Extracted text length:', text.length);
-    console.log('First 200 characters:', text.substring(0, 200));
+    console.log('Extracted text length:', fullText.length);
+    console.log('First 200 characters:', fullText.substring(0, 200));
     
-    return text;
+    return fullText;
   } catch (error) {
     console.error('Error extracting text from PDF:', error);
     throw new Error('Failed to extract text from PDF: ' + (error as Error).message);
