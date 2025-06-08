@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Building2, MapPin, Briefcase, CheckCircle2, Loader2, Upload, Search } from 'lucide-react';
+import { FaBuilding, FaMapMarkerAlt, FaBriefcase, FaCheckCircle, FaSpinner, FaUpload, FaSearch } from 'react-icons/fa';
 import { get_JobRecommendations } from '../utils/resumeParser';
 
 interface Job {
@@ -71,7 +71,7 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
           <div className="flex items-center justify-center w-full">
             <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <Upload className="w-8 h-8 mb-4 text-gray-500" />
+                <FaUpload className="w-8 h-8 mb-4 text-gray-500" />
                 <p className="mb-2 text-sm text-gray-500">
                   <span className="font-semibold">Click to upload</span> or drag and drop
                 </p>
@@ -89,7 +89,7 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
 
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-gray-400" />
+              <FaSearch className="h-5 w-5 text-gray-400" />
             </div>
             <input
               type="text"
@@ -122,7 +122,7 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
 
       {isLoading ? (
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-yellow-500 mx-auto mb-4" />
+          <FaSpinner className="w-8 h-8 animate-spin text-yellow-500 mx-auto mb-4" />
           <p className="text-gray-600">Finding the best job matches for you...</p>
         </div>
       ) : jobs.length > 0 ? (
@@ -136,7 +136,7 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
                   <div className="flex items-center text-gray-600 mt-1">
-                    <Building2 className="w-4 h-4 mr-1" />
+                    <FaBuilding className="w-4 h-4 mr-1" />
                     <span>{job.company}</span>
                   </div>
                 </div>
@@ -148,9 +148,9 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
               </div>
 
               <div className="flex items-center text-gray-600 mb-4">
-                <MapPin className="w-4 h-4 mr-1" />
+                <FaMapMarkerAlt className="w-4 h-4 mr-1" />
                 <span className="mr-4">{job.location}</span>
-                <Briefcase className="w-4 h-4 mr-1" />
+                <FaBriefcase className="w-4 h-4 mr-1" />
                 <span>{job.type}</span>
               </div>
               
@@ -175,7 +175,7 @@ const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs: initialJo
                 <ul className="space-y-2">
                   {job.requirements.map((req, index) => (
                     <li key={index} className="flex items-start">
-                      <CheckCircle2 className="w-5 h-5 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <FaCheckCircle className="w-5 h-5 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{req}</span>
                     </li>
                   ))}

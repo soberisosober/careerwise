@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { FaCheckCircle, FaArrowRight } from 'react-icons/fa';
 
 interface ResumeUploadSuccessProps {
   onViewJobs: () => void;
@@ -30,7 +30,7 @@ const ResumeUploadSuccess: React.FC<ResumeUploadSuccessProps> = ({ onViewJobs })
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
         <div className="text-center">
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
-            <CheckCircle2 className="h-6 w-6 text-green-600" />
+            <FaCheckCircle className="h-6 w-6 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Resume Uploaded Successfully!
@@ -43,15 +43,15 @@ const ResumeUploadSuccess: React.FC<ResumeUploadSuccessProps> = ({ onViewJobs })
             <h3 className="font-semibold text-blue-900 mb-2">What's Next?</h3>
             <ul className="text-left text-blue-800 space-y-2">
               <li className="flex items-start">
-                <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
+                <FaCheckCircle className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
                 <span>We'll analyze your skills and experience</span>
               </li>
               <li className="flex items-start">
-                <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
+                <FaCheckCircle className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
                 <span>Match you with relevant job opportunities</span>
               </li>
               <li className="flex items-start">
-                <CheckCircle2 className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
+                <FaCheckCircle className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
                 <span>Show you jobs that align with your career goals</span>
               </li>
             </ul>
@@ -62,7 +62,7 @@ const ResumeUploadSuccess: React.FC<ResumeUploadSuccessProps> = ({ onViewJobs })
             className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center group"
           >
             View Job Matches
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            <FaArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

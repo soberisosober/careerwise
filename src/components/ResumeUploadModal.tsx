@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Upload, FileText } from 'lucide-react';
+import { FaTimes, FaUpload, FaFileAlt } from 'react-icons/fa';
 
 interface ResumeUploadModalProps {
   isOpen: boolean;
@@ -102,7 +102,7 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
             className="text-gray-500 hover:text-gray-700"
             disabled={isProcessing}
           >
-            <X className="w-5 h-5" />
+            <FaTimes className="w-5 h-5" />
           </button>
         </div>
 
@@ -112,7 +112,7 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
           </label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
             <div className="space-y-1 text-center">
-              <FileText className="mx-auto h-12 w-12 text-gray-400" />
+              <FaFileAlt className="mx-auto h-12 w-12 text-gray-400" />
               <div className="flex text-sm text-gray-600">
                 <label
                   htmlFor="file-upload"
@@ -139,7 +139,7 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
         {selectedFile && (
           <div className="mb-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center">
-              <FileText className="w-5 h-5 text-gray-400 mr-2" />
+              <FaFileAlt className="w-5 h-5 text-gray-400 mr-2" />
               <span className="text-sm text-gray-700">{selectedFile.name}</span>
             </div>
           </div>
@@ -162,12 +162,12 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
         >
           {isProcessing ? (
             <>
-              <Upload className="animate-bounce w-5 h-5 mr-2" />
+              <FaUpload className="animate-bounce w-5 h-5 mr-2" />
               Processing...
             </>
           ) : (
             <>
-              <Upload className="w-5 h-5 mr-2" />
+              <FaUpload className="w-5 h-5 mr-2" />
               Upload Resume
             </>
           )}
