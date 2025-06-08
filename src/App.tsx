@@ -27,6 +27,42 @@ import ResumeUploadModal from './components/ResumeUploadModal';
 import JobRecommendations from './components/JobRecommendations';
 import ResumeUploadSuccess from './components/ResumeUploadSuccess';
 
+// Sample analysis data
+const sampleAnalysis = {
+  experience: "5+ years",
+  education: "Bachelor's in Computer Science",
+  skills: [
+    "JavaScript", "React", "TypeScript", "Node.js", "Python",
+    "SQL", "AWS", "Docker", "Git", "REST APIs"
+  ],
+  jobProfiles: [
+    {
+      title: "Senior Software Engineer",
+      match: 95,
+      description: "Lead the development of scalable web applications using modern technologies.",
+      requirements: ["JavaScript", "React", "TypeScript", "Node.js", "AWS"],
+      salaryRange: "$120,000 - $160,000",
+      companies: ["TechCorp", "InnovateSoft", "Digital Solutions"]
+    },
+    {
+      title: "Full Stack Developer",
+      match: 85,
+      description: "Build and maintain full-stack applications with a focus on user experience.",
+      requirements: ["JavaScript", "React", "Python", "SQL", "REST APIs"],
+      salaryRange: "$100,000 - $140,000",
+      companies: ["WebTech", "CodeMasters", "DevHouse"]
+    },
+    {
+      title: "Backend Engineer",
+      match: 75,
+      description: "Design and implement robust backend systems and APIs.",
+      requirements: ["Node.js", "Python", "SQL", "AWS", "Docker"],
+      salaryRange: "$90,000 - $130,000",
+      companies: ["ServerPro", "CloudTech", "DataFlow"]
+    }
+  ]
+};
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -40,6 +76,7 @@ function App() {
   });
   const [jobRecommendations, setJobRecommendations] = useState<any[]>([]);
   const [showResumeModal, setShowResumeModal] = useState(false);
+  const [analysis, setAnalysis] = useState(sampleAnalysis);
 
   // Log initial state
   console.log('App initialized with states:', {
@@ -182,6 +219,7 @@ function App() {
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
       setShowResumeModal(false);
+      setAnalysis(sampleAnalysis); // In a real app, this would come from the backend
       console.log('Step 4: Resume processing completed successfully');
       console.log('State updated:', {
         isResumeUploaded: true,
@@ -218,6 +256,13 @@ function App() {
       showResumeModal: true
     });
     console.log('=== Start Journey Process Completed ===');
+  };
+
+  const handleReset = () => {
+    console.log('Resetting application state');
+    setIsResumeUploaded(false);
+    setShowSuccessScreen(false);
+    setShowResumeModal(true);
   };
 
   // Log state changes
@@ -645,8 +690,8 @@ function App() {
       {/* Job Recommendations */}
       {isResumeUploaded && !showSuccessScreen && (
         <JobRecommendations 
-          jobs={jobRecommendations} 
-          isLoading={isProcessingResume}
+          analysis={analysis}
+          onReset={handleReset}
         />
       )}
 
