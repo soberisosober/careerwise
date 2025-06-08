@@ -426,25 +426,27 @@ function App() {
           </div>
           {/* Bottom CTA Section */}
           <div className="bg-black text-white py-16 w-full">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col lg:flex-row items-center justify-between">
-                <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
-                <button
-                  onClick={handleStartJourney}
-                  className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
-                >
-                  Start Your Journey
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+            <div className="flex flex-col lg:flex-row items-center justify-between w-full px-4 sm:px-6 lg:px-8">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
+              <button
+                onClick={handleStartJourney}
+                className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
+              >
+                Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+      <section className="py-16 bg-blue-600 w-full overflow-x-hidden">
+        <div
+          className="relative w-full"
+          onMouseEnter={() => setStatsPaused(true)}
+          onMouseLeave={() => setStatsPaused(false)}
+        >
           <div
             className={`flex gap-4 whitespace-nowrap w-[200%] ${statsPaused ? '' : 'animate-stats-scroll'}`}
             style={{ willChange: 'transform' }}
