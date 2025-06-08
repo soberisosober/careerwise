@@ -583,11 +583,10 @@ function App() {
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Career coaching session"
-                className="w-full h-96 object-cover rounded-xl shadow-lg"
+                src="/rag-token-count.png"
+                alt="RAG Model Token Count (Cartoonish Style)"
+                className="w-full h-96 object-contain rounded-3xl border-4 border-gray-200 shadow-lg bg-white"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-transparent rounded-xl"></div>
             </div>
           </div>
         </div>
