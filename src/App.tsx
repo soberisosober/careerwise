@@ -455,87 +455,84 @@ function App() {
         </div>
       </section>
 
-      {/* Services Section - Centered with Colored Ends */}
+      {/* Services Section - Custom Color Order */}
       <section id="services" className="py-0 w-full">
         <div className="w-full bg-white">
           <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
         </div>
         <div className="relative w-full h-[416px] flex items-stretch">
-          {/* Left blank lime section */}
-          <div className="hidden md:block bg-lime-300 h-full" style={{width: '8vw', minWidth: '60px'}} />
-          {/* Centered content */}
-          <div className="flex-1 max-w-7xl mx-auto flex h-full">
-            {/* For Companies */}
-            <div
-              className={
-                `flex flex-col justify-between pl-12 pr-8 py-12 bg-black border-b-4 md:border-b-0 md:border-r-4 border-lime-400 transition-all duration-500 ease-in-out relative cursor-pointer ${
-                  hoveredSection === 'companies' ? 'flex-[8] z-10' : hoveredSection === 'candidates' ? 'flex-[2] z-0' : 'flex-1 z-0'
-                } h-[416px]`
-              }
-              onMouseEnter={() => setHoveredSection('companies')}
-              onMouseLeave={() => setHoveredSection(null)}
-              tabIndex={0}
-            >
-              <h3 className={`text-4xl md:text-5xl font-bold text-white transition-opacity duration-500 ${hoveredSection === 'candidates' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Companies</h3>
-              <div className="flex-1" />
-              <ul className={`space-y-1 transition-opacity duration-500 ${hoveredSection === 'candidates' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-lime-400">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  Personalized Service
-                </li>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-lime-400">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  98% Offer Acceptance Rate
-                </li>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-lime-400">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  No Upfront Fees
-                </li>
-              </ul>
-            </div>
-            {/* For Candidates */}
-            <div
-              className={
-                `flex flex-col justify-between pl-12 pr-8 py-12 bg-gradient-to-b from-blue-600 to-cyan-400 border-b-4 md:border-b-0 md:border-l-4 border-blue-500 transition-all duration-500 ease-in-out relative cursor-pointer ${
-                  hoveredSection === 'candidates' ? 'flex-[8] z-10' : hoveredSection === 'companies' ? 'flex-[2] z-0' : 'flex-1 z-0'
-                } h-[416px]`
-              }
-              onMouseEnter={() => setHoveredSection('candidates')}
-              onMouseLeave={() => setHoveredSection(null)}
-              tabIndex={0}
-            >
-              <h3 className={`text-4xl md:text-5xl font-bold text-white transition-opacity duration-500 ${hoveredSection === 'companies' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Candidates</h3>
-              <div className="flex-1" />
-              <ul className={`space-y-1 transition-opacity duration-500 ${hoveredSection === 'companies' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-white">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  4/5 Candidates Get Hired
-                </li>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-white">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  Career Coaching
-                </li>
-                <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
-                  <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-white">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                  </span>
-                  Interview Preparation
-                </li>
-              </ul>
-            </div>
+          {/* Leftmost yellow blank space */}
+          <div className="hidden md:block bg-yellow-300 h-full" style={{width: '6vw', minWidth: '40px'}} />
+          {/* For Companies (black) */}
+          <div
+            className={
+              `flex flex-col justify-between pl-12 pr-8 py-12 bg-black transition-all duration-500 ease-in-out relative cursor-pointer ${
+                hoveredSection === 'companies' ? 'flex-[8] z-10' : hoveredSection === 'candidates' ? 'flex-[2] z-0' : 'flex-1 z-0'
+              } h-[416px] border-b-4 md:border-b-0 md:border-r-4 border-yellow-300`
+            }
+            onMouseEnter={() => setHoveredSection('companies')}
+            onMouseLeave={() => setHoveredSection(null)}
+            tabIndex={0}
+          >
+            <h3 className={`text-4xl md:text-5xl font-bold text-white transition-opacity duration-500 ${hoveredSection === 'candidates' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Companies</h3>
+            <div className="flex-1" />
+            <ul className={`space-y-1 transition-opacity duration-500 ${hoveredSection === 'candidates' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+              <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                Personalized Service
+              </li>
+              <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                98% Offer Acceptance Rate
+              </li>
+              <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                No Upfront Fees
+              </li>
+            </ul>
           </div>
-          {/* Right blank blue section */}
-          <div className="hidden md:block bg-blue-600 h-full" style={{width: '8vw', minWidth: '60px'}} />
+          {/* For Candidates (yellow) */}
+          <div
+            className={
+              `flex flex-col justify-between pl-12 pr-8 py-12 bg-yellow-300 transition-all duration-500 ease-in-out relative cursor-pointer ${
+                hoveredSection === 'candidates' ? 'flex-[8] z-10' : hoveredSection === 'companies' ? 'flex-[2] z-0' : 'flex-1 z-0'
+              } h-[416px] border-b-4 md:border-b-0 md:border-l-4 border-black`
+            }
+            onMouseEnter={() => setHoveredSection('candidates')}
+            onMouseLeave={() => setHoveredSection(null)}
+            tabIndex={0}
+          >
+            <h3 className={`text-4xl md:text-5xl font-bold text-black transition-opacity duration-500 ${hoveredSection === 'companies' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Candidates</h3>
+            <div className="flex-1" />
+            <ul className={`space-y-1 transition-opacity duration-500 ${hoveredSection === 'companies' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+              <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                4/5 Candidates Get Hired
+              </li>
+              <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                Career Coaching
+              </li>
+              <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
+                <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                </span>
+                Interview Preparation
+              </li>
+            </ul>
+          </div>
+          {/* Rightmost black blank space */}
+          <div className="hidden md:block bg-black h-full" style={{width: '6vw', minWidth: '40px'}} />
         </div>
       </section>
 
