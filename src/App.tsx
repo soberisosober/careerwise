@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import * as React from 'react';
+const { useState, useEffect, useRef } = React;
 import { 
   Bars3Icon,
   XMarkIcon,
   ArrowRightIcon,
   UsersIcon,
-  TargetIcon,
+  TagIcon,
   ChartBarIcon,
   TrophyIcon,
   CheckCircleIcon,
@@ -16,7 +17,7 @@ import {
   BriefcaseIcon,
   BookOpenIcon,
   ChatBubbleLeftRightIcon,
-  WaveIcon,
+  SwatchIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DocumentTextIcon,
@@ -219,7 +220,7 @@ function App() {
       features: ["Mock Interviews", "Behavioral Questions", "Technical Interviews", "Salary Negotiation"]
     },
     {
-      icon: WaveIcon,
+      icon: SwatchIcon,
       title: "Career Transition Support",
       description: "Guidance and support for career changes, including industry research, skill development, and networking strategies.",
       features: ["Industry Analysis", "Skill Mapping", "Network Building", "Transition Planning"]
@@ -321,7 +322,7 @@ function App() {
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 mb-4">
-                  <WaveIcon className="h-8 w-8 text-white" />
+                  <SwatchIcon className="h-8 w-8 text-white" />
                 </div>
                 <span className="ml-2 text-2xl font-bold text-white">CareerWise</span>
               </div>
@@ -759,7 +760,7 @@ function App() {
             <div className="col-span-2">
               <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 mb-4">
-                  <WaveIcon className="h-8 w-8 text-white" />
+                  <SwatchIcon className="h-8 w-8 text-white" />
                 </div>
                 <span className="ml-2 text-2xl font-bold">CareerWise</span>
               </div>
