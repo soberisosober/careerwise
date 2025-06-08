@@ -446,21 +446,15 @@ function App() {
       <section className="py-16 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
           <div
-            className="relative w-full"
-            onMouseEnter={() => setStatsPaused(true)}
-            onMouseLeave={() => setStatsPaused(false)}
+            className={`flex gap-4 whitespace-nowrap w-[200%] ${statsPaused ? '' : 'animate-stats-scroll'}`}
+            style={{ willChange: 'transform' }}
           >
-            <div
-              className={`flex gap-8 whitespace-nowrap transition-transform duration-700 ease-linear ${statsPaused ? '' : 'animate-stats-scroll'}`}
-              style={{ willChange: 'transform' }}
-            >
-              {stats.concat(stats).map((stat, index) => (
-                <div key={index} className="text-center min-w-[260px]">
-                  <div className="text-3xl lg:text-4xl font-bold text-white">{stat.number}</div>
-                  <div className="mt-2 text-blue-100">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+            {stats.concat(stats).map((stat, index) => (
+              <div key={index} className="text-center min-w-[160px]">
+                <div className="text-xl lg:text-2xl font-bold text-white">{stat.number}</div>
+                <div className="mt-1 text-blue-100 text-sm lg:text-base">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
