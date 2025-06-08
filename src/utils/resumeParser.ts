@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer';
+import pdfParse from 'pdf-parse';
+
 // Common skills for different job roles
 export const jobSkills = {
   'Data Analyst': [
@@ -175,35 +178,32 @@ export const jobListings = [
   }
 ];
 
-// Function to extract text from PDF (simulated for now)
+// Function to extract text from PDF
 export const extractTextFromPDF = async (file: File): Promise<string> => {
-  // TODO: Implement actual PDF text extraction
-  // For now, return a simulated resume text
-  return `
-    John Doe
-    Software Engineer
+  try {
+    console.log('Starting PDF text extraction...');
     
-    Skills:
-    - JavaScript
-    - TypeScript
-    - React
-    - Node.js
-    - Python
-    - SQL
-    - Git
-    - AWS
+    // Convert File to ArrayBuffer
+    const arrayBuffer = await file.arrayBuffer();
     
-    Experience:
-    Senior Software Engineer at TechCorp (2018-2023)
-    - Led development of microservices architecture
-    - Implemented CI/CD pipelines
-    - Mentored junior developers
+    // Convert ArrayBuffer to Buffer (required by pdf-parse)
+    const buffer = Buffer.from(arrayBuffer);
     
-    Software Engineer at StartupX (2015-2018)
-    - Developed full-stack web applications
-    - Optimized database queries
-    - Implemented REST APIs
-  `;
+    // Parse PDF
+    const data = await pdfParse(buffer);
+    
+    // Extract text
+    const text = data.text;
+    
+    console.log('PDF text extraction complete');
+    console.log('Extracted text length:', text.length);
+    console.log('First 200 characters:', text.substring(0, 200));
+    
+    return text;
+  } catch (error) {
+    console.error('Error extracting text from PDF:', error);
+    throw new Error('Failed to extract text from PDF: ' + (error as Error).message);
+  }
 };
 
 // Function to extract skills from resume text
