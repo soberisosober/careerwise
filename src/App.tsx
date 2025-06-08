@@ -16,8 +16,13 @@ import {
   Briefcase,
   BookOpen,
   MessageSquare,
-  Waves
+  Waves,
+  ChevronLeft,
+  ChevronRight,
+  FileText,
+  Upload
 } from 'lucide-react';
+import { getJobRecommendations } from './utils/resumeParser';
 import ResumeUploadModal from './components/ResumeUploadModal';
 import JobRecommendations from './components/JobRecommendations';
 import ResumeUploadSuccess from './components/ResumeUploadSuccess';
@@ -34,6 +39,7 @@ function App() {
     email: '',
     message: ''
   });
+  const [jobRecommendations, setJobRecommendations] = useState<any[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -140,53 +146,17 @@ function App() {
     { number: "4.9", label: "Client Rating" }
   ];
 
-  // Sample job recommendations data
-  const recommendedJobs = [
-    {
-      id: '1',
-      title: 'Senior Software Engineer',
-      company: 'TechCorp',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      matchScore: 95,
-      description: 'We are looking for a Senior Software Engineer to join our growing team...',
-      requirements: [
-        '5+ years of experience in software development',
-        'Strong knowledge of React and TypeScript',
-        'Experience with cloud platforms (AWS/GCP)',
-        'Excellent problem-solving skills'
-      ]
-    },
-    {
-      id: '2',
-      title: 'Product Manager',
-      company: 'InnovateLabs',
-      location: 'Remote',
-      type: 'Full-time',
-      matchScore: 88,
-      description: 'Join our product team to help shape the future of our platform...',
-      requirements: [
-        '3+ years of product management experience',
-        'Strong analytical skills',
-        'Experience with agile methodologies',
-        'Excellent communication skills'
-      ]
-    }
-  ];
-
   const handleResumeUpload = async (file: File) => {
-    setIsProcessingResume(true);
     try {
-      // TODO: Implement actual file upload and processing
-      // This is where you'd typically send the file to your backend
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulated upload
-      
-      // After successful upload and processing
+      setIsProcessingResume(true);
+      // Get job recommendations based on resume
+      const recommendations = await getJobRecommendations(file);
+      setJobRecommendations(recommendations);
       setIsResumeUploaded(true);
-      setIsResumeModalOpen(false);
       setShowSuccessScreen(true);
     } catch (error) {
       console.error('Error processing resume:', error);
+      // Handle error appropriately
     } finally {
       setIsProcessingResume(false);
     }
@@ -202,7 +172,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-blue-600 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -605,8 +575,10 @@ function App() {
         isProcessing={isProcessingResume}
       />
 
-      {/* Job Recommendations Section */}
-      {isResumeUploaded && !showSuccessScreen && <JobRecommendations jobs={recommendedJobs} />}
+      {/* Job Recommendations */}
+      {isResumeUploaded && !showSuccessScreen && (
+        <JobRecommendations jobs={jobRecommendations} />
+      )}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
