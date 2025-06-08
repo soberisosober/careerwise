@@ -243,22 +243,26 @@ export const calculateJobMatch = (resumeSkills: string[], jobSkills: string[]): 
 // Function to get job recommendations based on resume
 export const get_JobRecommendations = async (file: File) => {
   try {
-    console.log('Starting job recommendations process...');
+    console.log('=== Starting Job Recommendations Process ===');
+    console.log('Input file:', file.name, file.type, file.size);
     
     // Extract text from resume
     const resumeText = await extractTextFromPDF(file);
-    console.log('Resume text extracted');
+    console.log('Resume text extracted:', resumeText.substring(0, 200) + '...');
     
-    // Extract skills from resume
+    // Extract skills from the text
     const resumeSkills = extractSkills(resumeText);
     console.log('Extracted skills:', resumeSkills);
     
-    // Calculate match scores and get recommendations
-    const jobRecommendations = jobListings.map(job => {
+    // Calculate match scores for each job
+    console.log('Calculating match scores for', jobListings.length, 'jobs');
+    const recommendations = jobListings.map(job => {
       const matchScore = calculateJobMatch(resumeSkills, job.skills);
       const matchingSkills = resumeSkills.filter(skill => job.skills.includes(skill));
       
-      console.log(`Job: ${job.title}, Match Score: ${matchScore}, Matching Skills: ${matchingSkills.length}`);
+      console.log(`Job: ${job.title}`);
+      console.log('- Match score:', matchScore);
+      console.log('- Matching skills:', matchingSkills);
       
       return {
         ...job,
@@ -267,16 +271,17 @@ export const get_JobRecommendations = async (file: File) => {
       };
     });
     
-    // Sort by match score and filter out low matches
-    const filteredRecommendations = jobRecommendations
+    // Sort and filter recommendations
+    const filteredRecommendations = recommendations
       .filter(job => job.matchScore >= 30)
       .sort((a, b) => b.matchScore - a.matchScore);
     
-    console.log(`Found ${filteredRecommendations.length} matching jobs`);
+    console.log('Final recommendations:', filteredRecommendations.length, 'jobs');
+    console.log('=== Job Recommendations Process Complete ===');
+    
     return filteredRecommendations;
-      
   } catch (error) {
-    console.error('Error in job recommendations process:', error);
+    console.error('Error in get_JobRecommendations:', error);
     throw error;
   }
 }; 
