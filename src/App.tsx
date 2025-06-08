@@ -424,19 +424,20 @@ function App() {
               </div>
             </div>
           </div>
-          {/* Bottom CTA Section */}
-          <div className="bg-black text-white py-16 w-full">
-            <div className="flex flex-col lg:flex-row items-center justify-between w-full px-4 sm:px-6 lg:px-8">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
-              <button
-                onClick={handleStartJourney}
-                className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
-              >
-                Start Your Journey
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
+        </div>
+      </section>
+
+      {/* Get Hired Section - Full Width */}
+      <section className="bg-black text-white py-16 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
+          <button
+            onClick={handleStartJourney}
+            className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
+          >
+            Start Your Journey
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </section>
 
