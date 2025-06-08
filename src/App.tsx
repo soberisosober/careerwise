@@ -320,7 +320,7 @@ function App() {
                 <a href="#testimonials" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Success Stories</a>
                 <button
                   onClick={handleStartJourney}
-                  className="bg-white text-black px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+                  className="bg-white text-black px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
                 >
                   Get Started
                 </button>
@@ -329,7 +329,7 @@ function App() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-300 focus:outline-none"
+                className="inline-flex items-center justify-center p-2 rounded-lg text-white hover:text-gray-300 focus:outline-none"
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -346,7 +346,7 @@ function App() {
               <a href="#testimonials" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Success Stories</a>
               <button
                 onClick={handleStartJourney}
-                className="bg-white text-black block px-3 py-2 rounded-lg text-base font-medium mx-3 mt-4"
+                className="bg-white text-black block px-3 py-2 rounded-xl text-base font-medium mx-3 mt-4"
               >
                 Get Started
               </button>
@@ -373,7 +373,7 @@ function App() {
                 <div className="text-center mt-8">
                   <button
                     onClick={handleStartJourney}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center mx-auto"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center mx-auto"
                   >
                     Start Your Journey
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -382,7 +382,7 @@ function App() {
               )}
             </div>
             {/* Right Panel - Scrolling Job Listings */}
-            <div className="lg:col-span-1 bg-white rounded-lg shadow-2xl p-6 h-80 flex flex-col justify-center">
+            <div className="lg:col-span-1 bg-white rounded-xl shadow-2xl p-6 h-80 flex flex-col justify-center">
               <div className="space-y-6 transition-all duration-500 ease-in-out">
                 {jobListings.map((job, index) => (
                   <div 
@@ -429,7 +429,7 @@ function App() {
                 <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
                 <button
                   onClick={handleStartJourney}
-                  className="bg-white text-black px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center group"
+                  className="bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors flex items-center group"
                 >
                   Start Your Journey
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -472,7 +472,7 @@ function App() {
               return (
                 <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                   <div className="flex items-center mb-6">
-                    <div className="bg-blue-100 p-3 rounded-lg">
+                    <div className="bg-blue-100 p-3 rounded-xl">
                       <Icon className="h-8 w-8 text-blue-600" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 ml-4">{service.title}</h3>
@@ -508,7 +508,7 @@ function App() {
               </p>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-2 rounded-lg mr-4 mt-1">
+                  <div className="bg-blue-100 p-2 rounded-xl mr-4 mt-1">
                     <Users className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -517,7 +517,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-green-100 p-2 rounded-lg mr-4 mt-1">
+                  <div className="bg-green-100 p-2 rounded-xl mr-4 mt-1">
                     <Award className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
@@ -526,7 +526,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-yellow-100 p-2 rounded-lg mr-4 mt-1">
+                  <div className="bg-yellow-100 p-2 rounded-xl mr-4 mt-1">
                     <Target className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div>
@@ -595,7 +595,7 @@ function App() {
               <h3 className="text-2xl font-bold text-gray-900 mb-8">Get In Touch</h3>
               <div className="space-y-6">
                 <div className="flex items-center">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                  <div className="bg-blue-100 p-3 rounded-xl mr-4">
                     <Phone className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -604,7 +604,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="bg-green-100 p-3 rounded-lg mr-4">
+                  <div className="bg-green-100 p-3 rounded-xl mr-4">
                     <Mail className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
@@ -613,7 +613,7 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="bg-yellow-100 p-3 rounded-lg mr-4">
+                  <div className="bg-yellow-100 p-3 rounded-xl mr-4">
                     <MapPin className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div>
@@ -642,7 +642,7 @@ function App() {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     required
                   />
                 </div>
@@ -656,7 +656,7 @@ function App() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     required
                   />
                 </div>
@@ -670,14 +670,14 @@ function App() {
                     rows={4}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                     placeholder="Tell us about your career goals and how we can help..."
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center group"
+                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center group"
                 >
                   Send Message
                   <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -702,10 +702,10 @@ function App() {
                 strategic planning, and personalized support.
               </p>
               <div className="flex space-x-4">
-                <div className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
+                <div className="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
                   <Phone className="h-5 w-5" />
                 </div>
-                <div className="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
+                <div className="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
                   <Mail className="h-5 w-5" />
                 </div>
               </div>
@@ -747,9 +747,9 @@ function App() {
       {/* Results Modal */}
       {showResultsModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Your Job Matches</h2>
+          <div className="bg-white rounded-xl p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Your Job Matches</h2>
               <button
                 onClick={() => setShowResultsModal(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -757,36 +757,43 @@ function App() {
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <div className="overflow-y-auto flex-1 pr-4">
-              <div className="space-y-6">
-                {jobRecommendations.map((job) => (
-                  <div key={job.id} className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
-                        <p className="text-gray-600">{job.company}</p>
-                        <p className="text-gray-600">{job.location}</p>
-                      </div>
-                      <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                        {job.matchScore}% Match
-                      </div>
+            
+            <div className="overflow-y-auto flex-1 space-y-4 pr-2">
+              {jobRecommendations.map((job, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+                      <p className="text-gray-600">{job.company}</p>
+                      <p className="text-gray-500 text-sm">{job.location}</p>
                     </div>
-                    <p className="text-gray-700 mb-4">{job.description}</p>
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
-                      <ul className="list-disc list-inside text-gray-700 space-y-1">
-                        {job.requirements.map((req, index) => (
-                          <li key={index}>{req}</li>
+                    <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-xl text-sm font-medium">
+                      {job.matchScore}% Match
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">Job Description</h4>
+                      <p className="text-gray-600">{job.description}</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-medium text-gray-900 mb-2">Requirements</h4>
+                      <ul className="list-disc list-inside text-gray-600 space-y-1">
+                        {job.requirements.map((req, i) => (
+                          <li key={i}>{req}</li>
                         ))}
                       </ul>
                     </div>
+                    
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Matching Skills:</h4>
+                      <h4 className="font-medium text-gray-900 mb-2">Matching Skills</h4>
                       <div className="flex flex-wrap gap-2">
-                        {job.matchingSkills.map((skill, index) => (
-                          <span
-                            key={index}
-                            className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                        {job.matchingSkills.map((skill, i) => (
+                          <span 
+                            key={i}
+                            className="bg-green-100 text-green-800 px-3 py-1 rounded-xl text-sm"
                           >
                             {skill}
                           </span>
@@ -794,16 +801,8 @@ function App() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() => setShowResultsModal(false)}
-                className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
-              >
-                Close
-              </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -812,7 +811,7 @@ function App() {
       {/* Processing Modal */}
       {isProcessing && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md w-full">
+          <div className="bg-white rounded-xl p-8 max-w-md w-full">
             <div className="text-center mb-6">
               <Loader2 className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Processing Your Resume</h2>
@@ -820,9 +819,9 @@ function App() {
             </div>
             
             {/* Progress Bar */}
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+            <div className="w-full bg-gray-200 rounded-xl h-2.5 mb-4">
               <div 
-                className="bg-blue-600 h-2.5 rounded-full transition-all duration-300 ease-in-out"
+                className="bg-blue-600 h-2.5 rounded-xl transition-all duration-300 ease-in-out"
                 style={{ width: `${processingProgress}%` }}
               ></div>
             </div>
