@@ -22,7 +22,7 @@ import {
   FileText,
   Upload
 } from 'lucide-react';
-import { getJobRecommendations } from './utils/resumeParser';
+import { get_JobRecommendations } from './utils/resumeParser';
 import ResumeUploadModal from './components/ResumeUploadModal';
 import JobRecommendations from './components/JobRecommendations';
 import ResumeUploadSuccess from './components/ResumeUploadSuccess';
@@ -139,8 +139,8 @@ async function testResumeUpload() {
   console.log('Test extracted skills:', extractedSkills);
   
   // Test job matching
-  const matchedJobs = findMatchingJobs(extractedSkills);
-  console.log('Test matched jobs:', matchedJobs.map(job => ({
+  const matchedJobs = await get_JobRecommendations(sampleFile);
+  console.log('Test matched jobs:', matchedJobs.map((job: any) => ({
     title: job.title,
     matchScore: job.matchScore,
     matchingSkills: job.matchingSkills
@@ -284,13 +284,7 @@ function App() {
   ];
 
   const handleResumeUpload = async (file: File) => {
-    console.log('=== Resume Upload Process Started ===');
-    console.log('File details:', {
-      name: file.name,
-      type: file.type,
-      size: `${(file.size / 1024).toFixed(2)} KB`
-    });
-
+    console.log('=== Starting Resume Upload ===');
     setIsProcessingResume(true);
     
     try {
@@ -298,18 +292,18 @@ function App() {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Get job recommendations
-      const matchedJobs = getJobRecommendations();
+      const matchedJobs = await get_JobRecommendations(file);
       console.log('Matched jobs:', matchedJobs);
       
       // Update state
       setJobRecommendations(matchedJobs);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
-      setIsModalOpen(false);
+      setShowResumeModal(false);
       
-      console.log('=== Resume Upload Process Completed ===');
+      console.log('=== Resume Upload Complete ===');
     } catch (error) {
-      console.error('Error in resume processing:', error);
+      console.error('Error processing resume:', error);
     } finally {
       setIsProcessingResume(false);
     }
@@ -826,16 +820,6 @@ function App() {
       </footer>
     </div>
   );
-}
-
-// Helper function to get job recommendations
-function getJobRecommendations() {
-  console.log('Getting job recommendations');
-  return sampleJobs.map(job => ({
-    ...job,
-    matchScore: Math.floor(Math.random() * 30) + 70, // Random score between 70-100
-    matchingSkills: job.matchingSkills
-  })).sort((a, b) => b.matchScore - a.matchScore);
 }
 
 export default App;
