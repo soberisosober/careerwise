@@ -18,9 +18,12 @@ import {
   MessageSquare,
   Waves
 } from 'lucide-react';
+import ResumeUploadModal from './components/ResumeUploadModal';
+import JobRecommendations from './components/JobRecommendations';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [currentJobIndex, setCurrentJobIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -133,6 +136,40 @@ function App() {
     { number: "4.9", label: "Client Rating" }
   ];
 
+  // Sample job recommendations data
+  const recommendedJobs = [
+    {
+      id: '1',
+      title: 'Senior Software Engineer',
+      company: 'TechCorp',
+      location: 'San Francisco, CA',
+      type: 'Full-time',
+      matchScore: 95,
+      description: 'We are looking for a Senior Software Engineer to join our growing team...',
+      requirements: [
+        '5+ years of experience in software development',
+        'Strong knowledge of React and TypeScript',
+        'Experience with cloud platforms (AWS/GCP)',
+        'Excellent problem-solving skills'
+      ]
+    },
+    {
+      id: '2',
+      title: 'Product Manager',
+      company: 'InnovateLabs',
+      location: 'Remote',
+      type: 'Full-time',
+      matchScore: 88,
+      description: 'Join our product team to help shape the future of our platform...',
+      requirements: [
+        '3+ years of product management experience',
+        'Strong analytical skills',
+        'Experience with agile methodologies',
+        'Excellent communication skills'
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-green-100">
       {/* Navigation */}
@@ -195,6 +232,13 @@ function App() {
               <p className="text-xl text-black mb-8 max-w-2xl">
                 Explore the latest roles in data, engineering, product, and beyond.
               </p>
+              <button
+                onClick={() => setIsResumeModalOpen(true)}
+                className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center group"
+              >
+                Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
 
             {/* Right Panel - Scrolling Job Listings */}
@@ -519,6 +563,15 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Resume Upload Modal */}
+      <ResumeUploadModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
+
+      {/* Job Recommendations Section */}
+      <JobRecommendations jobs={recommendedJobs} />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
