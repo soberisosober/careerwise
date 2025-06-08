@@ -3,13 +3,12 @@ import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import Tesseract from 'tesseract.js';
 
 // Create a Blob-based worker inline (works in Vite + StackBlitz)
-const pdfWorkerBlob = new Blob(
+const workerBlob = new Blob(
   [await (await fetch('https://unpkg.com/pdfjs-dist@3.11.174/legacy/build/pdf.worker.js')).text()],
   { type: 'application/javascript' }
 );
-const pdfWorkerBlobURL = URL.createObjectURL(pdfWorkerBlob);
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerBlobURL;
+const blobUrl = URL.createObjectURL(workerBlob);
+pdfjsLib.GlobalWorkerOptions.workerSrc = blobUrl;
 
 // Common skills for different job roles
 export const jobSkills = {

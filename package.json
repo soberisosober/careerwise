@@ -14,7 +14,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.344.0",
     "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^5.3.31",
+    "pdfjs-dist": "^3.11.174",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^3.3.0",
