@@ -462,9 +462,9 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 w-full">
           {/* For Companies */}
           <div className="bg-black flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
-            <div>
-              <h3 className="text-6xl md:text-7xl font-extrabold text-white mb-10 -mt-5">For Companies</h3>
-              <ul className="space-y-2 mt-16">
+            <div className="flex flex-col h-full">
+              <h3 className="text-6xl md:text-7xl font-extrabold text-white mb-20 -mt-5">For Companies</h3>
+              <ul className="space-y-2 mt-auto pb-2">
                 <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
                   <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
@@ -488,9 +488,9 @@ function App() {
           </div>
           {/* For Candidates */}
           <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
-            <div>
-              <h3 className="text-6xl md:text-7xl font-extrabold text-white mb-10 -mt-5">For Candidates</h3>
-              <ul className="space-y-2 mt-16">
+            <div className="flex flex-col h-full">
+              <h3 className="text-6xl md:text-7xl font-extrabold text-white mb-20 -mt-5">For Candidates</h3>
+              <ul className="space-y-2 mt-auto pb-2">
                 <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
                   <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-white">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
