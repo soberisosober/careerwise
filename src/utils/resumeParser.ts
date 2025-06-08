@@ -1,12 +1,10 @@
 import { Buffer } from 'buffer';
 import * as pdfjsLib from 'pdfjs-dist';
-import { createWorker } from 'tesseract.js';
+import Tesseract from 'tesseract.js';
 
-// Initialize PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
-  import.meta.url
-).toString();
+// Configure PDF.js worker
+import workerSrc from 'pdfjs-dist/build/pdf.worker.min.js?url';
+pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 
 // Common skills for different job roles
 export const jobSkills = {
@@ -185,36 +183,54 @@ export const jobListings = [
   }
 ];
 
-export async function extractTextFromPDF(file: File): Promise<string> {
-  console.log('Starting PDF text extraction with Tesseract.js...');
+export const extractTextFromPDF = async (file: File): Promise<string> => {
   try {
-    // Create a worker for OCR
-    const worker = await createWorker('eng');
-    console.log('Tesseract worker created');
+    console.log('Starting OCR-based PDF text extraction...');
 
-    // Convert PDF to image (first page)
-    const pdfUrl = URL.createObjectURL(file);
-    console.log('PDF URL created:', pdfUrl);
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-    // Perform OCR on the PDF
-    const { data: { text } } = await worker.recognize(pdfUrl);
-    console.log('Text extraction completed');
-    console.log('Extracted text length:', text.length);
-    console.log('First 200 characters:', text.substring(0, 200));
+    if (!pdf || pdf.numPages === 0) {
+      throw new Error('PDF appears to be empty or not properly parsed');
+    }
 
-    // Terminate the worker
-    await worker.terminate();
-    console.log('Tesseract worker terminated');
+    let fullText = '';
 
-    // Clean up the URL
-    URL.revokeObjectURL(pdfUrl);
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({ scale: 2 });
 
-    return text;
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      const renderContext = {
+        canvasContext: context!,
+        viewport: viewport
+      };
+
+      await page.render(renderContext).promise;
+
+      // Convert canvas to image blob
+      const blob: Blob = await new Promise(resolve => canvas.toBlob(resolve as any, 'image/png'));
+
+      // Run Tesseract OCR
+      const { data: { text } } = await Tesseract.recognize(blob, 'eng', {
+        logger: m => console.log(`Page ${i} OCR Progress:`, m)
+      });
+
+      fullText += text + '\n';
+      console.log(`OCR done for page ${i}`);
+    }
+
+    console.log('OCR complete. Extracted text length:', fullText.length);
+    return fullText;
   } catch (error) {
-    console.error('Error extracting text from PDF:', error);
-    throw new Error('Failed to extract text from PDF');
+    console.error('Error during OCR PDF extraction:', error);
+    throw new Error('OCR text extraction failed: ' + (error as Error).message);
   }
-}
+};
 
 // Function to extract skills from resume text
 export const extractSkills = (text: string): string[] => {
