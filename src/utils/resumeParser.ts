@@ -10,6 +10,19 @@ const workerBlob = new Blob(
 const blobUrl = URL.createObjectURL(workerBlob);
 pdfjsLib.GlobalWorkerOptions.workerSrc = blobUrl;
 
+// Type for job skills mapping
+type JobSkillsMap = {
+  'Data Analyst': string[];
+  'Software Engineer': string[];
+  'Marketing Manager': string[];
+  'Product Manager': string[];
+  'UX Designer': string[];
+};
+
+// Utility to normalize keywords for matching (lowercase, trim)
+const normalizeKeywords = (keywords: string[]): string[] =>
+  keywords.map((kw) => kw.toLowerCase().trim());
+
 // Common skills for different job roles
 export const jobSkills = {
   'Data Analyst': [
@@ -257,48 +270,92 @@ export const calculateJobMatch = (resumeSkills: string[], jobSkills: string[]): 
   return Math.min(baseScore + bonusScore, 100);
 };
 
-// Function to get job recommendations based on resume
-export const get_JobRecommendations = async (file: File) => {
+// Function to filter jobs based on keyword prompt
+function filterJobsByPrompt(jobs: typeof jobListings, prompt?: string) {
+  if (!prompt) return jobs;
+  
+  const searchTerm = prompt.toLowerCase().trim();
+  
+  return jobs.filter(job => {
+    const jobTitle = job.title.toLowerCase();
+    const companyName = job.company.toLowerCase();
+    const jobType = job.title.split(' ').pop()?.toLowerCase() || '';
+    
+    return jobTitle.includes(searchTerm) || 
+           companyName.includes(searchTerm) || 
+           jobType.includes(searchTerm);
+  });
+}
+
+// Function to find jobs matching extracted resume keywords
+function findMatchingJobs(resumeKeywords: string[], prompt?: string) {
+  const normalizedResumeKeywords = normalizeKeywords(resumeKeywords);
+
+  // Map jobListings to include their skills from jobSkills
+  const jobsWithSkills = jobListings.map(job => {
+    const jobType = job.title.split(' ').pop() as keyof JobSkillsMap;
+    return {
+      ...job,
+      skills: jobSkills[jobType] || []
+    };
+  });
+
+  // Filter jobs by prompt first
+  const filteredJobs = filterJobsByPrompt(jobsWithSkills, prompt);
+
+  // Find jobs with matching skills
+  return filteredJobs.filter(job => {
+    const jobSkills = normalizeKeywords(job.skills);
+    return jobSkills.some(skill => 
+      normalizedResumeKeywords.some(keyword => 
+        skill.includes(keyword) || keyword.includes(skill)
+      )
+    );
+  });
+}
+
+// Function to find jobs with match scores
+function findMatchingJobsWithScore(resumeKeywords: string[], prompt?: string) {
+  const normalizedResumeKeywords = normalizeKeywords(resumeKeywords);
+
+  // Map jobListings to include their skills from jobSkills
+  const jobsWithSkills = jobListings.map(job => {
+    const jobType = job.title.split(' ').pop() as keyof JobSkillsMap;
+    return {
+      ...job,
+      skills: jobSkills[jobType] || []
+    };
+  });
+
+  // Filter jobs by prompt first
+  const filteredJobs = filterJobsByPrompt(jobsWithSkills, prompt);
+
+  // Calculate match scores for filtered jobs
+  return filteredJobs.map(job => {
+    const jobSkills = normalizeKeywords(job.skills);
+    const matchingSkills = jobSkills.filter(skill =>
+      normalizedResumeKeywords.some(keyword =>
+        skill.includes(keyword) || keyword.includes(skill)
+      )
+    );
+
+    const matchScore = Math.round((matchingSkills.length / jobSkills.length) * 100);
+
+    return {
+      ...job,
+      matchScore,
+      matchingSkills
+    };
+  }).sort((a, b) => b.matchScore - a.matchScore);
+}
+
+export const get_JobRecommendations = async (file: File, prompt?: string) => {
   try {
-    console.log('=== Starting Job Recommendations Process ===');
-    console.log('Input file:', file.name, file.type, file.size);
-    
-    // Extract text from resume
-    const resumeText = await extractTextFromPDF(file);
-    console.log('Resume text extracted:', resumeText.substring(0, 200) + '...');
-    
-    // Extract skills from the text
-    const resumeSkills = extractSkills(resumeText);
-    console.log('Extracted skills:', resumeSkills);
-    
-    // Calculate match scores for each job
-    console.log('Calculating match scores for', jobListings.length, 'jobs');
-    const recommendations = jobListings.map(job => {
-      const matchScore = calculateJobMatch(resumeSkills, job.skills);
-      const matchingSkills = resumeSkills.filter(skill => job.skills.includes(skill));
-      
-      console.log(`Job: ${job.title}`);
-      console.log('- Match score:', matchScore);
-      console.log('- Matching skills:', matchingSkills);
-      
-      return {
-        ...job,
-        matchScore,
-        matchingSkills
-      };
-    });
-    
-    // Sort and filter recommendations
-    const filteredRecommendations = recommendations
-      .filter(job => job.matchScore >= 30)
-      .sort((a, b) => b.matchScore - a.matchScore);
-    
-    console.log('Final recommendations:', filteredRecommendations.length, 'jobs');
-    console.log('=== Job Recommendations Process Complete ===');
-    
-    return filteredRecommendations;
+    const text = await extractTextFromPDF(file);
+    const skills = extractSkills(text);
+    return findMatchingJobsWithScore(skills, prompt);
   } catch (error) {
-    console.error('Error in get_JobRecommendations:', error);
+    console.error('Error getting job recommendations:', error);
     throw error;
   }
 }; 
