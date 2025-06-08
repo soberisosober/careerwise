@@ -12,11 +12,10 @@ export default defineConfig({
       include: [/pdfjs-dist/, /node_modules/]
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'pdf-vendor': ['pdfjs-dist/legacy/build/pdf']
         }
       }
     }
