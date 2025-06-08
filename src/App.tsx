@@ -333,7 +333,7 @@ function App() {
             </div>
 
             {/* Services Section */}
-            <section className="py-20 bg-gray-50">
+            <section className="py-20 bg-yellow-50">
               <div className="container mx-auto px-4">
                 <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -341,15 +341,15 @@ function App() {
                     const Icon = service.icon;
                     return (
                       <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                          <Icon className="w-6 h-6 text-blue-600" />
+                        <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-yellow-600" />
                         </div>
                         <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                         <p className="text-gray-600 mb-4">{service.description}</p>
                         <ul className="space-y-2">
                           {service.features.map((feature, idx) => (
                             <li key={idx} className="flex items-center text-gray-700">
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                              <CheckCircle className="w-5 h-5 text-yellow-500 mr-2" />
                               {feature}
                             </li>
                           ))}
