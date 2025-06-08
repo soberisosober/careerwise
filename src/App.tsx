@@ -424,7 +424,7 @@ function App() {
             </div>
           </div>
           {/* Bottom CTA Section */}
-          <div className="bg-black text-white py-8 w-full">
+          <div className="absolute bottom-0 left-0 right-0 bg-black text-white py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col lg:flex-row items-center justify-between">
                 <h2 className="text-4xl lg:text-5xl font-bold mb-4 lg:mb-0">Get Hired</h2>
@@ -442,7 +442,7 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600">
+      <section className="py-16 bg-blue-600" style={{height: '120px'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
