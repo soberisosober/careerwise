@@ -460,30 +460,35 @@ function App() {
           <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-          {/* For Companies */}
-          <div className="bg-black flex flex-col justify-between items-start p-10 md:p-16 min-h-[400px] h-full border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
-            <h3 className="text-6xl md:text-7xl font-extrabold text-white">For Companies</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
-                <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                </span>
-                Personalized Service
-              </li>
-              <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
-                <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                </span>
-                98% Offer Acceptance Rate
-              </li>
-              <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
-                <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
-                </span>
-                No Upfront Fees
-              </li>
-            </ul>
+        <div className="bg-black flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
+            {/* Container takes full height and spaces children */}
+            <div className="flex flex-col flex-1 justify-between">
+              {/* Title at the top */}
+              <h3 className="text-5xl md:text-6xl font-extrabold text-white">
+                For Companies
+              </h3>
+
+              {/* List pushed to the bottom */}
+              <ul className="space-y-4">
+                {[
+                  "Personalized Service",
+                  "98% Offer Acceptance Rate",
+                  "No Upfront Fees"
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
+                    <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8">
+                        <circle cx="12" cy="12" r="12" fill="#D9FF00"/>
+                        <path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/>
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+
           {/* For Candidates */}
           <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
             <div className="flex flex-col h-full">
