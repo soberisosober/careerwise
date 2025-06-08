@@ -460,8 +460,8 @@ function App() {
           <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-          <div className="bg-black flex flex-col justify-between h-[400px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
-            <h3 className="text-5xl md:text-6xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Companies</h3>
+          <div className="bg-black flex flex-col justify-between h-[520px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
+            <h3 className="text-4xl md:text-5xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Companies</h3>
             <ul className="space-y-1">
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-lime-400">
@@ -485,8 +485,8 @@ function App() {
           </div>
 
           {/* For Candidates */}
-          <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between h-[400px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
-            <h3 className="text-5xl md:text-6xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Candidates</h3>
+          <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between h-[520px] pl-12 pr-8 py-12 border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
+            <h3 className="text-4xl md:text-5xl font-bold text-white" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>For Candidates</h3>
             <ul className="space-y-1">
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-white">
