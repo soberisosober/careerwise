@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FaTimes, FaUpload, FaFileAlt } from 'react-icons/fa';
 
 interface ResumeUploadModalProps {
   isOpen: boolean;
@@ -102,7 +101,9 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
             className="text-gray-500 hover:text-gray-700"
             disabled={isProcessing}
           >
-            <FaTimes className="w-5 h-5" />
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
@@ -112,7 +113,9 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
           </label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
             <div className="space-y-1 text-center">
-              <FaFileAlt className="mx-auto h-12 w-12 text-gray-400" />
+              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               <div className="flex text-sm text-gray-600">
                 <label
                   htmlFor="file-upload"
@@ -139,7 +142,9 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
         {selectedFile && (
           <div className="mb-4 p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center">
-              <FaFileAlt className="w-5 h-5 text-gray-400 mr-2" />
+              <svg className="w-5 h-5 text-gray-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               <span className="text-sm text-gray-700">{selectedFile.name}</span>
             </div>
           </div>
@@ -162,12 +167,16 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({
         >
           {isProcessing ? (
             <>
-              <FaUpload className="animate-bounce w-5 h-5 mr-2" />
+              <svg className="animate-bounce w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
               Processing...
             </>
           ) : (
             <>
-              <FaUpload className="w-5 h-5 mr-2" />
+              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
               Upload Resume
             </>
           )}
