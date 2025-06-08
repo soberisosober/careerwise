@@ -208,7 +208,7 @@ export const extractTextFromPDF = async (file: File): Promise<string> => {
 
 // Function to extract skills from resume text
 export const extractSkills = (text: string): string[] => {
-  const skills = new Set<string>();
+  const extractedSkills = new Set<string>();
   
   // Convert text to lowercase for case-insensitive matching
   const lowerText = text.toLowerCase();
@@ -217,12 +217,12 @@ export const extractSkills = (text: string): string[] => {
   Object.values(jobSkills).forEach(skillList => {
     skillList.forEach(skill => {
       if (lowerText.includes(skill.toLowerCase())) {
-        skills.add(skill);
+        extractedSkills.add(skill);
       }
     });
   });
   
-  return Array.from(skills);
+  return Array.from(extractedSkills);
 };
 
 // Function to calculate job match score
@@ -231,32 +231,52 @@ export const calculateJobMatch = (resumeSkills: string[], jobSkills: string[]): 
     jobSkills.includes(skill)
   );
   
-  return Math.round((matchingSkills.length / jobSkills.length) * 100);
+  // Calculate base score from matching skills
+  const baseScore = Math.round((matchingSkills.length / jobSkills.length) * 100);
+  
+  // Add bonus for having more matching skills
+  const bonusScore = Math.min(matchingSkills.length * 5, 20);
+  
+  return Math.min(baseScore + bonusScore, 100);
 };
 
 // Function to get job recommendations based on resume
-export const getJobRecommendations = async (file: File) => {
+export const get_JobRecommendations = async (file: File) => {
   try {
+    console.log('Starting job recommendations process...');
+    
     // Extract text from resume
     const resumeText = await extractTextFromPDF(file);
+    console.log('Resume text extracted');
     
     // Extract skills from resume
     const resumeSkills = extractSkills(resumeText);
+    console.log('Extracted skills:', resumeSkills);
     
     // Calculate match scores and get recommendations
-    const recommendations = jobListings.map(job => ({
-      ...job,
-      matchScore: calculateJobMatch(resumeSkills, job.skills),
-      matchingSkills: resumeSkills.filter(skill => job.skills.includes(skill))
-    }));
+    const jobRecommendations = jobListings.map(job => {
+      const matchScore = calculateJobMatch(resumeSkills, job.skills);
+      const matchingSkills = resumeSkills.filter(skill => job.skills.includes(skill));
+      
+      console.log(`Job: ${job.title}, Match Score: ${matchScore}, Matching Skills: ${matchingSkills.length}`);
+      
+      return {
+        ...job,
+        matchScore,
+        matchingSkills
+      };
+    });
     
     // Sort by match score and filter out low matches
-    return recommendations
+    const filteredRecommendations = jobRecommendations
       .filter(job => job.matchScore >= 30)
       .sort((a, b) => b.matchScore - a.matchScore);
+    
+    console.log(`Found ${filteredRecommendations.length} matching jobs`);
+    return filteredRecommendations;
       
   } catch (error) {
-    console.error('Error processing resume:', error);
+    console.error('Error in job recommendations process:', error);
     throw error;
   }
 }; 
