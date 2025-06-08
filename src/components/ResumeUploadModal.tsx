@@ -4,11 +4,17 @@ import { X, Upload, FileText } from 'lucide-react';
 interface ResumeUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onUpload: (file: File) => Promise<void>;
+  isProcessing: boolean;
 }
 
-const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ isOpen, onClose }) => {
+const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  onUpload,
+  isProcessing 
+}) => {
   const [file, setFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,25 +35,10 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ isOpen, onClose }
   const handleUpload = async () => {
     if (!file) return;
 
-    setIsUploading(true);
-    setError(null);
-
     try {
-      // TODO: Implement actual file upload and processing
-      // This is where you'd typically send the file to your backend
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulated upload
-      
-      // After successful upload, you would typically:
-      // 1. Process the resume
-      // 2. Extract key data
-      // 3. Get job recommendations
-      // 4. Navigate to recommendations page
-      
-      onClose(); // Close modal after successful upload
+      await onUpload(file);
     } catch (err) {
       setError('Failed to upload resume. Please try again.');
-    } finally {
-      setIsUploading(false);
     }
   };
 
@@ -61,6 +52,7 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ isOpen, onClose }
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 transition-colors"
+            disabled={isProcessing}
           >
             <X className="h-6 w-6" />
           </button>
@@ -74,10 +66,13 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ isOpen, onClose }
               className="hidden"
               accept=".pdf,.doc,.docx"
               onChange={handleFileChange}
+              disabled={isProcessing}
             />
             <label
               htmlFor="resume-upload"
-              className="cursor-pointer flex flex-col items-center"
+              className={`cursor-pointer flex flex-col items-center ${
+                isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
               <Upload className="h-12 w-12 text-blue-500 mb-4" />
               <span className="text-gray-600 mb-2">
@@ -97,22 +92,23 @@ const ResumeUploadModal: React.FC<ResumeUploadModalProps> = ({ isOpen, onClose }
           <button
             onClick={onClose}
             className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            disabled={isProcessing}
           >
             Cancel
           </button>
           <button
             onClick={handleUpload}
-            disabled={!file || isUploading}
+            disabled={!file || isProcessing}
             className={`px-6 py-2 rounded-lg font-medium flex items-center ${
-              !file || isUploading
+              !file || isProcessing
                 ? 'bg-gray-300 cursor-not-allowed'
                 : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            {isUploading ? (
+            {isProcessing ? (
               <>
                 <span className="animate-spin mr-2">⏳</span>
-                Uploading...
+                Processing...
               </>
             ) : (
               <>

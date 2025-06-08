@@ -25,6 +25,8 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [currentJobIndex, setCurrentJobIndex] = useState(0);
+  const [isResumeUploaded, setIsResumeUploaded] = useState(false);
+  const [isProcessingResume, setIsProcessingResume] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -170,6 +172,23 @@ function App() {
     }
   ];
 
+  const handleResumeUpload = async (file: File) => {
+    setIsProcessingResume(true);
+    try {
+      // TODO: Implement actual file upload and processing
+      // This is where you'd typically send the file to your backend
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulated upload
+      
+      // After successful upload and processing
+      setIsResumeUploaded(true);
+      setIsResumeModalOpen(false);
+    } catch (error) {
+      console.error('Error processing resume:', error);
+    } finally {
+      setIsProcessingResume(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-green-100">
       {/* Navigation */}
@@ -232,13 +251,15 @@ function App() {
               <p className="text-xl text-black mb-8 max-w-2xl">
                 Explore the latest roles in data, engineering, product, and beyond.
               </p>
-              <button
-                onClick={() => setIsResumeModalOpen(true)}
-                className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center group"
-              >
-                Start Your Journey
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              {!isResumeUploaded && (
+                <button
+                  onClick={() => setIsResumeModalOpen(true)}
+                  className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center group"
+                >
+                  Start Your Journey
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
             </div>
 
             {/* Right Panel - Scrolling Job Listings */}
@@ -568,10 +589,12 @@ function App() {
       <ResumeUploadModal
         isOpen={isResumeModalOpen}
         onClose={() => setIsResumeModalOpen(false)}
+        onUpload={handleResumeUpload}
+        isProcessing={isProcessingResume}
       />
 
       {/* Job Recommendations Section */}
-      <JobRecommendations jobs={recommendedJobs} />
+      {isResumeUploaded && <JobRecommendations jobs={recommendedJobs} />}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
