@@ -454,41 +454,63 @@ function App() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Comprehensive Career Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our expert team provides personalized support at every stage of your career journey,
-              from goal setting to landing your dream position.
-            </p>
+      {/* Services Section - New Design */}
+      <section id="services" className="py-0">
+        <div className="w-full bg-white">
+          <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full">
+          {/* For Companies */}
+          <div className="bg-black flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
+            <div>
+              <h3 className="text-4xl md:text-5xl font-bold text-white mb-12">For Companies</h3>
+              <ul className="space-y-6 mt-12">
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  Personalized Service
+                </li>
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  98% Offer Acceptance Rate
+                </li>
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-lime-400">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#D9FF00"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  No Upfront Fees
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-blue-100 p-3 rounded-xl">
-                      <Icon className="h-8 w-8 text-blue-600" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 ml-4">{service.title}</h3>
-                  </div>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                  <ul className="space-y-3">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+          {/* For Candidates */}
+          <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
+            <div>
+              <h3 className="text-4xl md:text-5xl font-bold text-white mb-12">For Candidates</h3>
+              <ul className="space-y-6 mt-12">
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-white">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  4/5 Candidates Get Hired
+                </li>
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-white">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  Career Coaching
+                </li>
+                <li className="flex items-center text-white text-2xl md:text-2xl font-normal">
+                  <span className="inline-flex items-center justify-center w-8 h-8 mr-4 text-white">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#0EA5E9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
+                  </span>
+                  Interview Preparation
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
