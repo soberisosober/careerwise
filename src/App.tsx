@@ -271,7 +271,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-columbia_blue-600 to-columbia_blue-800">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-blue-600 z-50">
+      <nav className="fixed top-0 w-full bg-black z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -282,13 +282,13 @@ function App() {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-8">
-                <a href="#home" className="text-white hover:text-blue-200 px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                <a href="#services" className="text-white hover:text-blue-200 px-3 py-2 text-sm font-medium transition-colors">Services</a>
-                <a href="#about" className="text-white hover:text-blue-200 px-3 py-2 text-sm font-medium transition-colors">About</a>
-                <a href="#testimonials" className="text-white hover:text-blue-200 px-3 py-2 text-sm font-medium transition-colors">Success Stories</a>
+                <a href="#home" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                <a href="#services" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Services</a>
+                <a href="#about" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">About</a>
+                <a href="#testimonials" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Success Stories</a>
                 <button
                   onClick={handleStartJourney}
-                  className="bg-white text-blue-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
+                  className="bg-white text-black px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
                 >
                   Get Started
                 </button>
@@ -297,7 +297,7 @@ function App() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-blue-200 focus:outline-none"
+                className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-300 focus:outline-none"
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -307,14 +307,14 @@ function App() {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-blue-600 border-t border-blue-500">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black border-t border-gray-800">
               <a href="#home" className="text-white block px-3 py-2 text-base font-medium">Home</a>
-              <a href="#services" className="text-white hover:text-blue-200 block px-3 py-2 text-base font-medium">Services</a>
-              <a href="#about" className="text-white hover:text-blue-200 block px-3 py-2 text-base font-medium">About</a>
-              <a href="#testimonials" className="text-white hover:text-blue-200 block px-3 py-2 text-base font-medium">Success Stories</a>
+              <a href="#services" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Services</a>
+              <a href="#about" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">About</a>
+              <a href="#testimonials" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Success Stories</a>
               <button
                 onClick={handleStartJourney}
-                className="bg-white text-blue-600 block px-3 py-2 rounded-lg text-base font-medium mx-3 mt-4"
+                className="bg-white text-black block px-3 py-2 rounded-lg text-base font-medium mx-3 mt-4"
               >
                 Get Started
               </button>
