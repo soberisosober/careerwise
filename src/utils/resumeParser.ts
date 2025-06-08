@@ -3,8 +3,10 @@ import * as pdfjsLib from 'pdfjs-dist';
 import Tesseract from 'tesseract.js';
 
 // Configure PDF.js worker
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.js',
+  import.meta.url
+).toString();
 
 // Common skills for different job roles
 export const jobSkills = {
@@ -185,7 +187,7 @@ export const jobListings = [
 
 export const extractTextFromPDF = async (file: File): Promise<string> => {
   try {
-    console.log('Starting OCR-based PDF text extraction...');
+    console.log('Starting PDF text extraction...');
 
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -195,40 +197,27 @@ export const extractTextFromPDF = async (file: File): Promise<string> => {
     }
 
     let fullText = '';
-
+    
+    // Extract text from each page
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
-      const viewport = page.getViewport({ scale: 2 });
-
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      const renderContext = {
-        canvasContext: context!,
-        viewport: viewport
-      };
-
-      await page.render(renderContext).promise;
-
-      // Convert canvas to image blob
-      const blob: Blob = await new Promise(resolve => canvas.toBlob(resolve as any, 'image/png'));
-
-      // Run Tesseract OCR
-      const { data: { text } } = await Tesseract.recognize(blob, 'eng', {
-        logger: m => console.log(`Page ${i} OCR Progress:`, m)
-      });
-
-      fullText += text + '\n';
-      console.log(`OCR done for page ${i}`);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items
+        .map((item: any) => item.str)
+        .join(' ');
+      
+      fullText += pageText + '\n';
+      console.log(`Extracted text from page ${i}`);
     }
 
-    console.log('OCR complete. Extracted text length:', fullText.length);
+    console.log('PDF text extraction complete');
+    console.log('Extracted text length:', fullText.length);
+    console.log('First 200 characters:', fullText.substring(0, 200));
+
     return fullText;
   } catch (error) {
-    console.error('Error during OCR PDF extraction:', error);
-    throw new Error('OCR text extraction failed: ' + (error as Error).message);
+    console.error('Error extracting text from PDF:', error);
+    throw new Error('PDF text extraction failed: ' + (error as Error).message);
   }
 };
 
