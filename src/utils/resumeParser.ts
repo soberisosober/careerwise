@@ -1,9 +1,15 @@
 import { Buffer } from 'buffer';
-import * as pdfjsLib from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import Tesseract from 'tesseract.js';
 
-// Use UMD worker instead of ESM for better compatibility
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
+// Create a Blob-based worker inline (works in Vite + StackBlitz)
+const pdfWorkerBlob = new Blob(
+  [await (await fetch('https://unpkg.com/pdfjs-dist@3.11.174/legacy/build/pdf.worker.js')).text()],
+  { type: 'application/javascript' }
+);
+const pdfWorkerBlobURL = URL.createObjectURL(pdfWorkerBlob);
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerBlobURL;
 
 // Common skills for different job roles
 export const jobSkills = {
