@@ -462,7 +462,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 w-full">
           {/* For Companies */}
           <div className="bg-black flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-r-4 border-lime-400">
-            <div className="flex flex-col flex-1 justify-center">
+            
               <h3 className="text-6xl md:text-7xl font-bold text-white mb-20 -mt-2">For Companies</h3>
               <ul className="space-y-2 mt-auto pb-0">
                 <li className="flex items-center text-white text-lg md:text-xl font-normal leading-tight">
@@ -484,7 +484,7 @@ function App() {
                   No Upfront Fees
                 </li>
               </ul>
-            </div>
+            
           </div>
           {/* For Candidates */}
           <div className="bg-gradient-to-b from-blue-600 to-cyan-400 flex flex-col justify-between p-10 md:p-16 min-h-[400px] border-b-4 md:border-b-0 md:border-l-4 border-blue-500">
