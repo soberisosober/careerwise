@@ -372,10 +372,10 @@ function App() {
                 Explore the latest roles in data, engineering, product, and beyond.
               </p>
               {!isResumeUploaded && !showResumeModal && (
-                <div className="text-center mt-8">
+                <div className="flex justify-center mt-16">
                   <button
                     onClick={handleStartJourney}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center mx-auto"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center"
                   >
                     Start Your Journey
                     <ArrowRight className="ml-2 h-5 w-5" />
