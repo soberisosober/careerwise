@@ -3,8 +3,8 @@ import * as pdfjsLib from 'pdfjs-dist';
 import Tesseract from 'tesseract.js';
 
 // Configure PDF.js worker
-import workerSrc from 'pdfjs-dist/build/pdf.worker.min.js?url';
-pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 
 // Common skills for different job roles
 export const jobSkills = {
