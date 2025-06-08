@@ -130,6 +130,7 @@ function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [analysis, setAnalysis] = useState(sampleAnalysis);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showResultsModal, setShowResultsModal] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -258,7 +259,7 @@ function App() {
         const recommendations = await get_JobRecommendations(file);
         setJobRecommendations(recommendations);
         setIsResumeUploaded(true);
-        setShowSuccessScreen(true);
+        setShowResultsModal(true);
       } catch (error) {
         console.error('Error processing resume:', error);
       } finally {
@@ -399,6 +400,71 @@ function App() {
           <JobRecommendations jobs={jobRecommendations} isLoading={isProcessingResume} />
         </div>
       </section>
+
+      {/* Results Modal */}
+      {showResultsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] flex flex-col">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold">Your Job Matches</h2>
+              <button
+                onClick={() => setShowResultsModal(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="overflow-y-auto flex-1 pr-4">
+              <div className="space-y-6">
+                {jobRecommendations.map((job) => (
+                  <div key={job.id} className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+                        <p className="text-gray-600">{job.company}</p>
+                        <p className="text-gray-600">{job.location}</p>
+                      </div>
+                      <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                        {job.matchScore}% Match
+                      </div>
+                    </div>
+                    <p className="text-gray-700 mb-4">{job.description}</p>
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-gray-900 mb-2">Requirements:</h4>
+                      <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        {job.requirements.map((req, index) => (
+                          <li key={index}>{req}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Matching Skills:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {job.matchingSkills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setShowResultsModal(false)}
+                className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Success Screen */}
       {showSuccessScreen && (
