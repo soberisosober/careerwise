@@ -136,6 +136,7 @@ function App() {
   const [processingProgress, setProcessingProgress] = useState(0);
   const [hoveredSection, setHoveredSection] = useState<'companies' | 'candidates' | null>(null);
   const [statsPaused, setStatsPaused] = useState(false);
+  const [ragTilt, setRagTilt] = useState({ x: 0, y: 0, hovering: false });
 
   const processingSteps = [
     { text: "Uploading File", duration: 1000 },
@@ -301,6 +302,15 @@ function App() {
       }
     }
   };
+
+  const handleRagMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 to 1
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2; // -1 to 1
+    setRagTilt({ x, y, hovering: true });
+  };
+
+  const handleRagMouseLeave = () => setRagTilt({ x: 0, y: 0, hovering: false });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-columbia_blue-600 to-columbia_blue-800">
@@ -581,11 +591,19 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative"
+              onMouseMove={handleRagMouseMove}
+              onMouseLeave={handleRagMouseLeave}
+            >
               <img
                 src="/rag-token-count.png"
                 alt="RAG Model Token Count (Cartoonish Style)"
-                className="w-full h-96 object-contain rounded-3xl border-4 border-gray-200 shadow-lg bg-white"
+                className="w-full h-96 object-contain rounded-3xl border-4 border-gray-200 shadow-lg bg-white transition-transform duration-300"
+                style={{
+                  transform: ragTilt.hovering
+                    ? `perspective(900px) rotateY(${ragTilt.x * 18}deg) rotateX(${-ragTilt.y * 18}deg)`
+                    : 'perspective(900px) rotateY(0deg) rotateX(0deg)',
+                }}
               />
             </div>
           </div>
