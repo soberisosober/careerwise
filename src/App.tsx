@@ -457,9 +457,6 @@ function App() {
 
       {/* Services Section - Custom Color Order */}
       <section id="services" className="py-0 w-full">
-        <div className="w-full bg-white">
-          <h2 className="text-5xl md:text-6xl font-bold text-black text-left px-4 pt-8 pb-4" style={{letterSpacing: '-2px'}}>Bridging Talent and Opportunity</h2>
-        </div>
         <div className="relative w-full h-[416px] flex items-stretch">
           {/* Leftmost yellow blank space */}
           <div className="hidden md:block bg-yellow-300 h-full" style={{width: '6vw', minWidth: '40px'}} />
