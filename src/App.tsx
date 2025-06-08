@@ -24,9 +24,7 @@ import {
   LucideIcon
 } from 'lucide-react';
 import { get_JobRecommendations } from './utils/resumeParser';
-import ResumeUploadModal from './components/ResumeUploadModal';
 import JobRecommendations from './components/JobRecommendations';
-import ResumeUploadSuccess from './components/ResumeUploadSuccess';
 
 // Sample analysis data
 const sampleAnalysis = {
@@ -132,15 +130,6 @@ function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [analysis, setAnalysis] = useState(sampleAnalysis);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Log initial state
-  console.log('App initialized with states:', {
-    isResumeUploaded,
-    isProcessingResume,
-    showSuccessScreen,
-    showResumeModal,
-    jobRecommendationsCount: jobRecommendations.length
-  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -278,26 +267,6 @@ function App() {
     }
   };
 
-  const handleViewJobs = () => {
-    setShowSuccessScreen(false);
-  };
-
-  const handleReset = () => {
-    setIsResumeUploaded(false);
-    setShowSuccessScreen(false);
-    setJobRecommendations(sampleJobs);
-  };
-
-  // Debug logging for state changes
-  useEffect(() => {
-    console.log('State updated:', {
-      isResumeUploaded,
-      showSuccessScreen,
-      isModalOpen,
-      jobRecommendationsCount: jobRecommendations.length
-    });
-  }, [isResumeUploaded, showSuccessScreen, isModalOpen, jobRecommendations]);
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hidden file input */}
@@ -385,72 +354,51 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-        {stats.map((stat, index) => (
-          <div key={index} className="text-center">
-            <div className="text-3xl font-bold text-indigo-600 mb-2">{stat.number}</div>
-            <div className="text-gray-600">{stat.label}</div>
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl font-bold text-yellow-500 mb-2">{stat.number}</div>
+                <div className="text-gray-600">{stat.label}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
       {/* Testimonials Section */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Success Stories</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center mb-4">
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-600">{testimonial.role} at {testimonial.company}</p>
-                </div>
-                <div className="flex">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400" />
-                  ))}
-                </div>
-              </div>
-              <p className="text-gray-600">{testimonial.content}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Job Recommendations Section */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Your Job Matches</h3>
-        <JobRecommendations jobs={jobRecommendations} isLoading={isProcessingResume} />
-      </div>
-
-      {/* Job Recommendations Modal */}
-      {showResumeModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
-            <h2 className="text-2xl font-bold mb-4">Job Recommendations</h2>
-            <div className="space-y-4">
-              {jobRecommendations.map((job) => (
-                <div key={job.id} className="border rounded-lg p-4">
-                  <h3 className="text-lg font-semibold">{job.title}</h3>
-                  <p className="text-gray-600">{job.company}</p>
-                  <p className="text-gray-600">{job.location}</p>
-                  <div className="mt-2">
-                    <span className="text-sm font-medium text-yellow-600">
-                      Match Score: {job.matchScore}%
-                    </span>
+      <section className="py-20 bg-yellow-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12">Success Stories</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center mb-4">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+                    <p className="text-sm text-gray-600">{testimonial.role} at {testimonial.company}</p>
+                  </div>
+                  <div className="flex">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400" />
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setShowResumeModal(false)}
-              className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
-            >
-              Close
-            </button>
+                <p className="text-gray-600">{testimonial.content}</p>
+              </div>
+            ))}
           </div>
         </div>
-      )}
+      </section>
+
+      {/* Job Recommendations Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12">Your Job Matches</h2>
+          <JobRecommendations jobs={jobRecommendations} isLoading={isProcessingResume} />
+        </div>
+      </section>
 
       {/* Success Screen */}
       {showSuccessScreen && (
@@ -461,10 +409,7 @@ function App() {
               We've analyzed your resume and found some great job matches for you.
             </p>
             <button
-              onClick={() => {
-                setShowSuccessScreen(false);
-                setShowResumeModal(true);
-              }}
+              onClick={() => setShowSuccessScreen(false)}
               className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
             >
               View Job Matches
