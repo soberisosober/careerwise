@@ -118,6 +118,7 @@ const sampleJobs = [
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
   const [isProcessingResume, setIsProcessingResume] = useState(false);
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
@@ -245,24 +246,44 @@ function App() {
   ];
 
   const handleResumeUpload = async (file: File) => {
-    console.log('Starting resume upload process...');
+    console.log('=== Resume Upload Process Started ===');
+    console.log('File details:', {
+      name: file.name,
+      type: file.type,
+      size: `${(file.size / 1024).toFixed(2)} KB`
+    });
+
     setIsProcessingResume(true);
     
     try {
       // Simulate file upload and processing
+      console.log('Step 1: Starting file upload simulation');
       await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('Resume processed successfully');
       
-      // In a real application, this would be an API call to process the resume
-      // and get job recommendations based on the extracted skills
+      // Extract skills from resume
+      console.log('Step 2: Extracting skills from resume');
       const extractedSkills = await extractSkillsFromResume(file);
-      const matchedJobs = findMatchingJobs(extractedSkills);
+      console.log('Extracted skills:', extractedSkills);
       
+      // Find matching jobs
+      console.log('Step 3: Finding matching jobs');
+      const matchedJobs = findMatchingJobs(extractedSkills);
+      console.log('Matched jobs:', matchedJobs.map(job => ({
+        title: job.title,
+        matchScore: job.matchScore,
+        matchingSkills: job.matchingSkills
+      })));
+      
+      // Update state
+      console.log('Step 4: Updating application state');
       setJobRecommendations(matchedJobs);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
+      setIsModalOpen(false);
+      
+      console.log('=== Resume Upload Process Completed ===');
     } catch (error) {
-      console.error('Error processing resume:', error);
+      console.error('Error in resume processing:', error);
     } finally {
       setIsProcessingResume(false);
     }
@@ -288,7 +309,7 @@ function App() {
     console.log('Resetting application state');
     setIsResumeUploaded(false);
     setShowSuccessScreen(false);
-    setShowResumeModal(true);
+    setIsModalOpen(true);
   };
 
   // Log state changes
@@ -372,7 +393,7 @@ function App() {
               {!isResumeUploaded && !showResumeModal && (
                 <div className="text-center mt-8">
                   <button
-                    onClick={handleStartJourney}
+                    onClick={() => setIsModalOpen(true)}
                     className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center mx-auto"
                   >
                     Start Your Journey
@@ -707,8 +728,8 @@ function App() {
 
       {/* Resume Upload Modal */}
       <ResumeUploadModal
-        isOpen={showResumeModal}
-        onClose={() => setShowResumeModal(false)}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         onUpload={handleResumeUpload}
         isProcessing={isProcessingResume}
       />
@@ -776,37 +797,48 @@ function App() {
 
 // Helper functions for resume processing and job matching
 async function extractSkillsFromResume(file: File): Promise<string[]> {
+  console.log('Starting skill extraction from:', file.name);
+  
   // In a real application, this would use a PDF/DOCX parsing library
   // and NLP to extract skills from the resume
-  console.log('Extracting skills from resume:', file.name);
-  
-  // Simulate skill extraction
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve([
+      // Simulate extracted skills - these would come from actual resume parsing
+      const extractedSkills = [
         'JavaScript',
         'React',
         'Node.js',
         'Python',
         'SQL',
         'AWS',
-        'System Design'
-      ]);
+        'System Design',
+        'TypeScript',
+        'REST APIs',
+        'Git'
+      ];
+      console.log('Extracted skills:', extractedSkills);
+      resolve(extractedSkills);
     }, 1000);
   });
 }
 
-function findMatchingJobs(skills: string[]) {
+function findMatchingJobs(skills: string[]): typeof sampleJobs {
   console.log('Finding matching jobs for skills:', skills);
   
-  // In a real application, this would use a more sophisticated matching algorithm
-  // that considers skill relevance, experience level, and other factors
+  // Convert all skills to lowercase for case-insensitive matching
+  const normalizedSkills = skills.map(skill => skill.toLowerCase());
+  
   return sampleJobs.map(job => {
+    // Find matching skills for this job
     const matchingSkills = job.matchingSkills.filter(skill => 
-      skills.some(s => s.toLowerCase().includes(skill.toLowerCase()))
+      normalizedSkills.some(s => s.includes(skill.toLowerCase()))
     );
     
+    console.log(`Matching skills for ${job.title}:`, matchingSkills);
+    
+    // Calculate match score based on matching skills
     const matchScore = Math.round((matchingSkills.length / job.matchingSkills.length) * 100);
+    console.log(`Match score for ${job.title}: ${matchScore}%`);
     
     return {
       ...job,
