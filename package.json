@@ -12,11 +12,11 @@
   "dependencies": {
     "@types/pdfjs-dist": "^2.10.377",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.294.0",
+    "lucide-react": "0.263.1",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^3.11.174",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "tailwind-merge": "^3.3.0",
     "tesseract.js": "^6.0.1"
   },
