@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import ResumeUploadModal from './components/ResumeUploadModal';
 import JobRecommendations from './components/JobRecommendations';
+import ResumeUploadSuccess from './components/ResumeUploadSuccess';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +28,7 @@ function App() {
   const [currentJobIndex, setCurrentJobIndex] = useState(0);
   const [isResumeUploaded, setIsResumeUploaded] = useState(false);
   const [isProcessingResume, setIsProcessingResume] = useState(false);
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -182,12 +184,22 @@ function App() {
       // After successful upload and processing
       setIsResumeUploaded(true);
       setIsResumeModalOpen(false);
+      setShowSuccessScreen(true);
     } catch (error) {
       console.error('Error processing resume:', error);
     } finally {
       setIsProcessingResume(false);
     }
   };
+
+  const handleViewJobs = () => {
+    setShowSuccessScreen(false);
+  };
+
+  // If showing success screen, render only that
+  if (showSuccessScreen) {
+    return <ResumeUploadSuccess onViewJobs={handleViewJobs} />;
+  }
 
   return (
     <div className="min-h-screen bg-green-100">
@@ -594,7 +606,7 @@ function App() {
       />
 
       {/* Job Recommendations Section */}
-      {isResumeUploaded && <JobRecommendations jobs={recommendedJobs} />}
+      {isResumeUploaded && !showSuccessScreen && <JobRecommendations jobs={recommendedJobs} />}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
