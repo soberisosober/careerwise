@@ -563,8 +563,8 @@ function App() {
               </p>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-blue-100 p-2 rounded-xl mr-4 mt-1">
-                    <Users className="h-6 w-6 text-blue-600" />
+                  <div className="mr-4 mt-1 select-none">
+                    <span className="font-extrabold text-5xl text-black leading-none" style={{fontFamily: 'Comic Sans MS, Comic Sans, cursive'}}>1.</span>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Expert System Design</h4>
@@ -572,8 +572,8 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-green-100 p-2 rounded-xl mr-4 mt-1">
-                    <Award className="h-6 w-6 text-green-600" />
+                  <div className="mr-4 mt-1 select-none">
+                    <span className="font-extrabold text-5xl text-black leading-none" style={{fontFamily: 'Comic Sans MS, Comic Sans, cursive'}}>2.</span>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">AI-Driven Precision</h4>
@@ -581,8 +581,8 @@ function App() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-yellow-100 p-2 rounded-xl mr-4 mt-1">
-                    <Target className="h-6 w-6 text-yellow-600" />
+                  <div className="mr-4 mt-1 select-none">
+                    <span className="font-extrabold text-5xl text-black leading-none" style={{fontFamily: 'Comic Sans MS, Comic Sans, cursive'}}>3.</span>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Smart Matching</h4>
