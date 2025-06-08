@@ -19,6 +19,8 @@ interface JobRecommendationsProps {
 }
 
 const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs = [], isLoading = false }) => {
+  console.log('JobRecommendations rendered with jobs:', jobs);
+
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8 mt-16 flex items-center justify-center">
