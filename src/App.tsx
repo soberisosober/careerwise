@@ -364,7 +364,7 @@ function App() {
             {/* Left Content */}
             <div className="lg:col-span-2 text-left py-20">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black leading-tight mb-8">
-                Career links<br />
+                CareerWise links<br />
                 you to your next big<br />
                 <span className="block">career opportunity.</span>
               </h1>
@@ -549,9 +549,7 @@ function App() {
                 Why Choose Career?
               </h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                With over a decade of experience in career development and talent acquisition,
-                our team of certified career coaches has helped thousands of professionals
-                achieve their career goals across various industries.
+                Career uses a Retrieval-Augmented Generation (RAG) model to turn resumes into personalized job matches. It leverages vector embeddings, similarity scoring, and synthetic data alignment to recommend roles that truly fit.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -559,8 +557,8 @@ function App() {
                     <Users className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Expert Team</h4>
-                    <p className="text-gray-600">Certified career coaches with industry expertise across tech, finance, healthcare, and more.</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">Expert System Design</h4>
+                    <p className="text-gray-600">Built on vector embeddings and semantic parsing, the system extracts hidden features from resumes to match with job data.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -568,8 +566,8 @@ function App() {
                     <Award className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Proven Results</h4>
-                    <p className="text-gray-600">95% of our clients secure interviews within 30 days and receive job offers within 90 days.</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">AI-Driven Precision</h4>
+                    <p className="text-gray-600">Job suggestions are powered by a custom RAG model, with accuracy boosted via privacy-preserving federated learning (PySyft).</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -577,8 +575,8 @@ function App() {
                     <Target className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Personalized Approach</h4>
-                    <p className="text-gray-600">Tailored strategies based on your unique background, goals, and target industry.</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">Smart Matching</h4>
+                    <p className="text-gray-600">We combine cosine similarity, graph filters, and structured embeddings to surface jobs aligned with your domain and experience.</p>
                   </div>
                 </div>
               </div>
