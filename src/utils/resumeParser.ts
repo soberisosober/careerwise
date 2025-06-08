@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer';
 import * as pdfjsLib from 'pdfjs-dist';
+import { createWorker } from 'tesseract.js';
 
 // Initialize PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -184,42 +185,36 @@ export const jobListings = [
   }
 ];
 
-// Function to extract text from PDF
-export const extractTextFromPDF = async (file: File): Promise<string> => {
+export async function extractTextFromPDF(file: File): Promise<string> {
+  console.log('Starting PDF text extraction with Tesseract.js...');
   try {
-    console.log('Starting PDF text extraction...');
-    
-    // Convert File to ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
-    
-    // Load the PDF document
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    console.log('PDF loaded, number of pages:', pdf.numPages);
-    
-    let fullText = '';
-    
-    // Extract text from each page
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const pageText = textContent.items
-        .map((item: any) => item.str)
-        .join(' ');
-      fullText += pageText + '\n';
-      
-      console.log(`Extracted text from page ${i}`);
-    }
-    
-    console.log('PDF text extraction complete');
-    console.log('Extracted text length:', fullText.length);
-    console.log('First 200 characters:', fullText.substring(0, 200));
-    
-    return fullText;
+    // Create a worker for OCR
+    const worker = await createWorker('eng');
+    console.log('Tesseract worker created');
+
+    // Convert PDF to image (first page)
+    const pdfUrl = URL.createObjectURL(file);
+    console.log('PDF URL created:', pdfUrl);
+
+    // Perform OCR on the PDF
+    const { data: { text } } = await worker.recognize(pdfUrl);
+    console.log('Text extraction completed');
+    console.log('Extracted text length:', text.length);
+    console.log('First 200 characters:', text.substring(0, 200));
+
+    // Terminate the worker
+    await worker.terminate();
+    console.log('Tesseract worker terminated');
+
+    // Clean up the URL
+    URL.revokeObjectURL(pdfUrl);
+
+    return text;
   } catch (error) {
     console.error('Error extracting text from PDF:', error);
-    throw new Error('Failed to extract text from PDF: ' + (error as Error).message);
+    throw new Error('Failed to extract text from PDF');
   }
-};
+}
 
 // Function to extract skills from resume text
 export const extractSkills = (text: string): string[] => {

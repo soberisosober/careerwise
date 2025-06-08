@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['pdfjs-dist/build/pdf.worker.min.js']
+    include: ['tesseract.js']
   },
   build: {
     commonjsOptions: {
-      include: [/pdfjs-dist/]
+      include: [/tesseract\.js/]
     }
   }
 });
