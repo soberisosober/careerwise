@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Menu, 
   X, 
@@ -131,6 +131,7 @@ function App() {
   const [jobRecommendations, setJobRecommendations] = useState(sampleJobs);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [analysis, setAnalysis] = useState(sampleAnalysis);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Log initial state
   console.log('App initialized with states:', {
@@ -254,35 +255,31 @@ function App() {
     { number: "4.9", label: "Client Rating" }
   ];
 
-  const handleResumeUpload = async (file: File) => {
-    console.log('=== Starting Resume Upload ===');
-    setIsProcessingResume(true);
-    
-    try {
-      // Get job recommendations based on the uploaded resume
-      const recommendations = await get_JobRecommendations(file);
-      console.log('Job recommendations:', recommendations);
-      
-      // Update state with recommendations
-      setJobRecommendations(recommendations);
-      setIsResumeUploaded(true);
-      setShowSuccessScreen(true);
-      setShowResumeModal(false);
-      
-      console.log('=== Resume Upload Complete ===');
-    } catch (error) {
-      console.error('Error processing resume:', error);
-    } finally {
-      setIsProcessingResume(false);
+  const handleStartJourney = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setIsProcessingResume(true);
+      try {
+        const recommendations = await get_JobRecommendations(file);
+        setJobRecommendations(recommendations);
+        setIsResumeUploaded(true);
+        setShowSuccessScreen(true);
+      } catch (error) {
+        console.error('Error processing resume:', error);
+      } finally {
+        setIsProcessingResume(false);
+      }
     }
   };
 
   const handleViewJobs = () => {
     setShowSuccessScreen(false);
-  };
-
-  const handleStartJourney = () => {
-    setShowResumeModal(true);
   };
 
   const handleReset = () => {
@@ -302,114 +299,178 @@ function App() {
   }, [isResumeUploaded, showSuccessScreen, isModalOpen, jobRecommendations]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
+      {/* Hidden file input */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept=".pdf,.doc,.docx"
+        className="hidden"
+      />
+
+      {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold text-gray-900">CareerWise</h1>
+        <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <h1 className="text-2xl font-bold text-gray-900">CareerWise</h1>
+          </div>
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#services" className="text-gray-600 hover:text-gray-900">Services</a>
+            <a href="#about" className="text-gray-600 hover:text-gray-900">About</a>
+            <a href="#contact" className="text-gray-600 hover:text-gray-900">Contact</a>
             <button
-              onClick={() => setShowResumeModal(true)}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+              onClick={handleStartJourney}
+              className="bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
+            >
+              Start Your Journey
+            </button>
+          </div>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden text-gray-600"
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="bg-yellow-50 py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+              Transform Your Career Journey
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Get personalized career guidance, resume optimization, and job recommendations tailored to your skills and aspirations.
+            </p>
+            <button
+              onClick={handleStartJourney}
+              className="bg-yellow-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-600 transition-colors"
             >
               Start Your Journey
             </button>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main>
-        {showSuccessScreen ? (
-          <ResumeUploadSuccess onViewJobs={() => setShowSuccessScreen(false)} />
-        ) : (
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            {/* Hero Section */}
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Transform Your Career Journey
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Upload your resume and discover job opportunities that match your skills and experience.
-              </p>
-            </div>
+      {/* Services Section */}
+      <section className="py-20 bg-yellow-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-yellow-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                  <p className="text-gray-600 mb-4">{service.description}</p>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-gray-700">
+                        <CheckCircle className="w-5 h-5 text-yellow-500 mr-2" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-            {/* Services Section */}
-            <section className="py-20 bg-yellow-50">
-              <div className="container mx-auto px-4">
-                <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {services.map((service, index) => {
-                    const Icon = service.icon;
-                    return (
-                      <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
-                          <Icon className="w-6 h-6 text-yellow-600" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                        <p className="text-gray-600 mb-4">{service.description}</p>
-                        <ul className="space-y-2">
-                          {service.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center text-gray-700">
-                              <CheckCircle className="w-5 h-5 text-yellow-500 mr-2" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    );
-                  })}
+      {/* Stats Section */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        {stats.map((stat, index) => (
+          <div key={index} className="text-center">
+            <div className="text-3xl font-bold text-indigo-600 mb-2">{stat.number}</div>
+            <div className="text-gray-600">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Success Stories</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <div className="flex-1">
+                  <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-600">{testimonial.role} at {testimonial.company}</p>
+                </div>
+                <div className="flex">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400" />
+                  ))}
                 </div>
               </div>
-            </section>
+              <p className="text-gray-600">{testimonial.content}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-            {/* Stats Section */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl font-bold text-indigo-600 mb-2">{stat.number}</div>
-                  <div className="text-gray-600">{stat.label}</div>
+      {/* Job Recommendations Section */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Your Job Matches</h3>
+        <JobRecommendations jobs={jobRecommendations} isLoading={isProcessingResume} />
+      </div>
+
+      {/* Job Recommendations Modal */}
+      {showResumeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+            <h2 className="text-2xl font-bold mb-4">Job Recommendations</h2>
+            <div className="space-y-4">
+              {jobRecommendations.map((job) => (
+                <div key={job.id} className="border rounded-lg p-4">
+                  <h3 className="text-lg font-semibold">{job.title}</h3>
+                  <p className="text-gray-600">{job.company}</p>
+                  <p className="text-gray-600">{job.location}</p>
+                  <div className="mt-2">
+                    <span className="text-sm font-medium text-yellow-600">
+                      Match Score: {job.matchScore}%
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
-
-            {/* Testimonials Section */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Success Stories</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                        <p className="text-sm text-gray-600">{testimonial.role} at {testimonial.company}</p>
-                      </div>
-                      <div className="flex">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 text-yellow-400" />
-                        ))}
-                      </div>
-                    </div>
-                    <p className="text-gray-600">{testimonial.content}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Job Recommendations Section */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Your Job Matches</h3>
-              <JobRecommendations jobs={jobRecommendations} isLoading={isProcessingResume} />
-            </div>
+            <button
+              onClick={() => setShowResumeModal(false)}
+              className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
+            >
+              Close
+            </button>
           </div>
-        )}
-      </main>
+        </div>
+      )}
 
-      {showResumeModal && (
-        <ResumeUploadModal
-          isOpen={showResumeModal}
-          onClose={() => setShowResumeModal(false)}
-          onUpload={handleResumeUpload}
-          isProcessing={isProcessingResume}
-        />
+      {/* Success Screen */}
+      {showSuccessScreen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+            <h2 className="text-2xl font-bold mb-4">Resume Analysis Complete!</h2>
+            <p className="text-gray-600 mb-4">
+              We've analyzed your resume and found some great job matches for you.
+            </p>
+            <button
+              onClick={() => {
+                setShowSuccessScreen(false);
+                setShowResumeModal(true);
+              }}
+              className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
+            >
+              View Job Matches
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
