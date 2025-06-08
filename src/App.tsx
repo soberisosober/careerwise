@@ -294,26 +294,14 @@ function App() {
     setIsProcessingResume(true);
     
     try {
-      // Simulate file upload and processing
-      console.log('Step 1: Starting file upload simulation');
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Simulate processing delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Extract skills from resume
-      console.log('Step 2: Extracting skills from resume');
-      const extractedSkills = await extractSkillsFromResume(file);
-      console.log('Extracted skills:', extractedSkills);
-      
-      // Find matching jobs
-      console.log('Step 3: Finding matching jobs');
-      const matchedJobs = findMatchingJobs(extractedSkills);
-      console.log('Matched jobs:', matchedJobs.map(job => ({
-        title: job.title,
-        matchScore: job.matchScore,
-        matchingSkills: job.matchingSkills
-      })));
+      // Get job recommendations
+      const matchedJobs = getJobRecommendations();
+      console.log('Matched jobs:', matchedJobs);
       
       // Update state
-      console.log('Step 4: Updating application state');
       setJobRecommendations(matchedJobs);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
@@ -374,7 +362,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-columbia_blue-600 to-columbia_blue-800">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-blue-600 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -840,61 +828,14 @@ function App() {
   );
 }
 
-// Helper functions for resume processing and job matching
-async function extractSkillsFromResume(file: File): Promise<string[]> {
-  console.log('Starting skill extraction from:', file.name);
-  
-  // In a real application, this would use a PDF/DOCX parsing library
-  // and NLP to extract skills from the resume
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Simulate extracted skills - these would come from actual resume parsing
-      const extractedSkills = [
-        'JavaScript',
-        'React',
-        'Node.js',
-        'Python',
-        'SQL',
-        'AWS',
-        'System Design',
-        'TypeScript',
-        'REST APIs',
-        'Git'
-      ];
-      console.log('Extracted skills:', extractedSkills);
-      resolve(extractedSkills);
-    }, 1000);
-  });
-}
-
-function findMatchingJobs(skills: string[]): typeof sampleJobs {
-  console.log('Finding matching jobs for skills:', skills);
-  
-  // Convert all skills to lowercase for case-insensitive matching
-  const normalizedSkills = skills.map(skill => skill.toLowerCase());
-  console.log('Normalized skills:', normalizedSkills);
-  
-  const matchedJobs = sampleJobs.map(job => {
-    // Find matching skills for this job
-    const matchingSkills = job.matchingSkills.filter(skill => 
-      normalizedSkills.some(s => s.includes(skill.toLowerCase()))
-    );
-    
-    console.log(`Matching skills for ${job.title}:`, matchingSkills);
-    
-    // Calculate match score based on matching skills
-    const matchScore = Math.round((matchingSkills.length / job.matchingSkills.length) * 100);
-    console.log(`Match score for ${job.title}: ${matchScore}%`);
-    
-    return {
-      ...job,
-      matchScore,
-      matchingSkills
-    };
-  }).sort((a, b) => b.matchScore - a.matchScore);
-
-  console.log('Final matched jobs:', matchedJobs);
-  return matchedJobs;
+// Helper function to get job recommendations
+function getJobRecommendations() {
+  console.log('Getting job recommendations');
+  return sampleJobs.map(job => ({
+    ...job,
+    matchScore: Math.floor(Math.random() * 30) + 70, // Random score between 70-100
+    matchingSkills: job.matchingSkills
+  })).sort((a, b) => b.matchScore - a.matchScore);
 }
 
 export default App;
