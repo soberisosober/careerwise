@@ -63,6 +63,58 @@ const sampleAnalysis = {
   ]
 };
 
+// Sample job data
+const sampleJobs = [
+  {
+    id: '1',
+    title: 'Senior Software Engineer',
+    company: 'TechCorp',
+    location: 'San Francisco, CA',
+    type: 'Full-time',
+    matchScore: 95,
+    description: 'Lead the development of scalable web applications using modern technologies.',
+    requirements: [
+      '5+ years of software development experience',
+      'Strong proficiency in JavaScript and React',
+      'Experience with cloud platforms (AWS)',
+      'Knowledge of system design and architecture'
+    ],
+    matchingSkills: ['JavaScript', 'React', 'AWS', 'System Design']
+  },
+  {
+    id: '2',
+    title: 'Full Stack Developer',
+    company: 'WebTech',
+    location: 'Remote',
+    type: 'Full-time',
+    matchScore: 85,
+    description: 'Build and maintain full-stack applications with a focus on user experience.',
+    requirements: [
+      '3+ years of full-stack development',
+      'Experience with React and Node.js',
+      'Knowledge of database design',
+      'Strong problem-solving skills'
+    ],
+    matchingSkills: ['React', 'Node.js', 'Database Design']
+  },
+  {
+    id: '3',
+    title: 'Backend Engineer',
+    company: 'ServerPro',
+    location: 'New York, NY',
+    type: 'Full-time',
+    matchScore: 75,
+    description: 'Design and implement robust backend systems and APIs.',
+    requirements: [
+      '4+ years of backend development',
+      'Strong Python and SQL skills',
+      'Experience with microservices',
+      'Knowledge of cloud platforms'
+    ],
+    matchingSkills: ['Python', 'SQL', 'Microservices']
+  }
+];
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -74,7 +126,7 @@ function App() {
     email: '',
     message: ''
   });
-  const [jobRecommendations, setJobRecommendations] = useState<any[]>([]);
+  const [jobRecommendations, setJobRecommendations] = useState(sampleJobs);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [analysis, setAnalysis] = useState(sampleAnalysis);
 
@@ -193,58 +245,32 @@ function App() {
   ];
 
   const handleResumeUpload = async (file: File) => {
-    console.log('=== Resume Upload Process Started ===');
-    console.log('Step 1: Starting resume upload process');
-    console.log('File details:', {
-      name: file.name,
-      type: file.type,
-      size: `${(file.size / 1024).toFixed(2)} KB`
-    });
-
+    console.log('Starting resume upload process...');
+    setIsProcessingResume(true);
+    
     try {
-      setIsProcessingResume(true);
-      console.log('Step 2: Processing resume file');
+      // Simulate file upload and processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Resume processed successfully');
       
-      // Get job recommendations based on resume
-      const recommendations = await getJobRecommendations(file);
-      console.log('Step 3: Received job recommendations', {
-        count: recommendations.length,
-        matches: recommendations.map(job => ({
-          title: job.title,
-          matchScore: job.matchScore
-        }))
-      });
+      // In a real application, this would be an API call to process the resume
+      // and get job recommendations based on the extracted skills
+      const extractedSkills = await extractSkillsFromResume(file);
+      const matchedJobs = findMatchingJobs(extractedSkills);
       
-      setJobRecommendations(recommendations);
+      setJobRecommendations(matchedJobs);
       setIsResumeUploaded(true);
       setShowSuccessScreen(true);
-      setShowResumeModal(false);
-      setAnalysis(sampleAnalysis); // In a real app, this would come from the backend
-      console.log('Step 4: Resume processing completed successfully');
-      console.log('State updated:', {
-        isResumeUploaded: true,
-        showSuccessScreen: true,
-        showResumeModal: false
-      });
     } catch (error) {
-      console.error('Error in resume processing:', error);
-      // Handle error appropriately
+      console.error('Error processing resume:', error);
     } finally {
       setIsProcessingResume(false);
-      console.log('=== Resume Upload Process Completed ===');
     }
   };
 
   const handleViewJobs = () => {
-    console.log('=== View Jobs Process Started ===');
-    console.log('Step 1: User clicked "View Job Matches"');
+    console.log('User clicked to view jobs');
     setShowSuccessScreen(false);
-    console.log('Step 2: Success screen hidden, showing job recommendations');
-    console.log('State updated:', {
-      showSuccessScreen: false,
-      isResumeUploaded: true
-    });
-    console.log('=== View Jobs Process Completed ===');
   };
 
   const handleStartJourney = () => {
@@ -690,8 +716,8 @@ function App() {
       {/* Job Recommendations */}
       {isResumeUploaded && !showSuccessScreen && (
         <JobRecommendations 
-          analysis={analysis}
-          onReset={handleReset}
+          jobs={jobRecommendations}
+          isLoading={isProcessingResume}
         />
       )}
 
@@ -746,6 +772,48 @@ function App() {
       </footer>
     </div>
   );
+}
+
+// Helper functions for resume processing and job matching
+async function extractSkillsFromResume(file: File): Promise<string[]> {
+  // In a real application, this would use a PDF/DOCX parsing library
+  // and NLP to extract skills from the resume
+  console.log('Extracting skills from resume:', file.name);
+  
+  // Simulate skill extraction
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        'JavaScript',
+        'React',
+        'Node.js',
+        'Python',
+        'SQL',
+        'AWS',
+        'System Design'
+      ]);
+    }, 1000);
+  });
+}
+
+function findMatchingJobs(skills: string[]) {
+  console.log('Finding matching jobs for skills:', skills);
+  
+  // In a real application, this would use a more sophisticated matching algorithm
+  // that considers skill relevance, experience level, and other factors
+  return sampleJobs.map(job => {
+    const matchingSkills = job.matchingSkills.filter(skill => 
+      skills.some(s => s.toLowerCase().includes(skill.toLowerCase()))
+    );
+    
+    const matchScore = Math.round((matchingSkills.length / job.matchingSkills.length) * 100);
+    
+    return {
+      ...job,
+      matchScore,
+      matchingSkills
+    };
+  }).sort((a, b) => b.matchScore - a.matchScore);
 }
 
 export default App;
