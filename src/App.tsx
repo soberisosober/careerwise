@@ -20,7 +20,8 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
-  Upload
+  Upload,
+  LucideIcon
 } from 'lucide-react';
 import { get_JobRecommendations } from './utils/resumeParser';
 import ResumeUploadModal from './components/ResumeUploadModal';
@@ -188,7 +189,14 @@ function App() {
     return () => clearInterval(interval);
   }, [jobListings.length]);
 
-  const services = [
+  interface Service {
+    icon: LucideIcon;
+    title: string;
+    description: string;
+    features: string[];
+  }
+
+  const services: Service[] = [
     {
       icon: Briefcase,
       title: "Career Coaching",
@@ -198,19 +206,20 @@ function App() {
     {
       icon: BookOpen,
       title: "Resume & LinkedIn Optimization",
-      description: "Professional resume writing and LinkedIn profile optimization to make you stand out to recruiters and hiring managers in your industry.",
-      features: ["ATS-Optimized Resumes", "LinkedIn Makeover", "Cover Letter Writing", "Portfolio Development"]
+      description: "Professional resume writing and LinkedIn profile optimization to showcase your skills and experience effectively.",
+      features: ["ATS Optimization", "Keyword Research", "Profile Enhancement", "Industry Standards"]
     },
     {
       icon: MessageSquare,
       title: "Interview Preparation",
-      description: "Comprehensive interview coaching including mock interviews, behavioral question preparation, and industry-specific interview strategies.",
-      features: ["Mock Interviews", "Question Bank", "Body Language Training", "Salary Negotiation"]
+      description: "Comprehensive interview preparation including mock interviews, feedback, and strategies for different interview types.",
+      features: ["Mock Interviews", "Behavioral Questions", "Technical Interviews", "Salary Negotiation"]
     },
     {
+      icon: Waves,
       title: "Career Transition Support",
-      description: "Navigate career changes with confidence through strategic planning, skill gap analysis, and industry transition strategies.",
-      features: ["Industry Research", "Skill Development", "Network Building", "Transition Timeline"]
+      description: "Guidance and support for career changes, including industry research, skill development, and networking strategies.",
+      features: ["Industry Analysis", "Skill Mapping", "Network Building", "Transition Planning"]
     }
   ];
 
@@ -324,25 +333,33 @@ function App() {
             </div>
 
             {/* Services Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {services.map((service, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                  <div className="text-indigo-600 mb-4">
-                    <service.icon className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+            <section className="py-20 bg-gray-50">
+              <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {services.map((service, index) => {
+                    const Icon = service.icon;
+                    return (
+                      <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                        <p className="text-gray-600 mb-4">{service.description}</p>
+                        <ul className="space-y-2">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center text-gray-700">
+                              <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            </section>
 
             {/* Stats Section */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
