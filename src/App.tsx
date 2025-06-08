@@ -577,7 +577,10 @@ function App() {
 
       {/* Job Recommendations */}
       {isResumeUploaded && !showSuccessScreen && (
-        <JobRecommendations jobs={jobRecommendations} />
+        <JobRecommendations 
+          jobs={jobRecommendations} 
+          isLoading={isProcessingResume}
+        />
       )}
 
       {/* Footer */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, MapPin, Briefcase, CheckCircle2, XCircle } from 'lucide-react';
+import { Building2, MapPin, Briefcase, CheckCircle2, Loader2 } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -15,9 +15,34 @@ interface Job {
 
 interface JobRecommendationsProps {
   jobs: Job[];
+  isLoading?: boolean;
 }
 
-const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs }) => {
+const JobRecommendations: React.FC<JobRecommendationsProps> = ({ jobs = [], isLoading = false }) => {
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 mt-16 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-gray-600">Finding the best job matches for you...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!jobs || jobs.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8 mt-16">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">No Job Matches Found</h2>
+          <p className="text-gray-600">
+            We couldn't find any jobs that match your skills. Try updating your resume with more skills or try again later.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 mt-16">
       <h2 className="text-3xl font-bold text-gray-900 mb-8">Your Job Matches</h2>
