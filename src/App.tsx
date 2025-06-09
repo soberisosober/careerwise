@@ -229,10 +229,10 @@ function App() {
   ];
 
   const stats = [
-    { number: "2,500+", label: "Careers Transformed" },
-    { number: "95%", label: "Success Rate" },
-    { number: "150+", label: "Industry Partners" },
-    { number: "4.9", label: "Client Rating" }
+    { number: "10000+", label: "Resume Trained" },
+    { number: "80%", label: "Threshold of Similarities" },
+    { number: "150+", label: "Parameters" },
+    { number: "Py", label: "PySyft for GDPR" }
   ];
 
   const handleStartJourney = () => {
