@@ -228,7 +228,7 @@ function App() {
     }
   ];
 
-  const testimonials = [
+  /*const testimonials = [
     {
       name: "Sarah Johnson",
       role: "Marketing Manager",
@@ -250,7 +250,7 @@ function App() {
       content: "Their career coaching helped me identify my leadership potential and develop the skills needed to advance to a director-level position.",
       rating: 5
     }
-  ];
+  ];*/
 
   const stats = [
     { number: "2,500+", label: "Careers Transformed" },
