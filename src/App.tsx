@@ -610,7 +610,7 @@ function App() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+92 (700) 490-2320</p>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -619,7 +619,7 @@ function App() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Email</p>
-                    <p className="text-gray-600">hello@career.com</p>
+                    <p className="text-gray-600">eshansingh@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -628,15 +628,14 @@ function App() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Location</p>
-                    <p className="text-gray-600">New York, NY & Remote</p>
+                    <p className="text-gray-600">Akurdi, Pune</p>
                   </div>
                 </div>
               </div>
               <div className="mt-12 p-6 bg-blue-50 rounded-xl">
-                <h4 className="font-bold text-gray-900 mb-2">Free Consultation</h4>
+                <h4 className="font-bold text-gray-900 mb-2">Attention</h4>
                 <p className="text-gray-600">
-                  Schedule a complimentary 30-minute consultation to discuss your career goals
-                  and learn how we can help you achieve them.
+                  These are not compliable to legal usecase, due to certain limitations.
                 </p>
               </div>
             </div>
