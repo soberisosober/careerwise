@@ -310,7 +310,7 @@ function App() {
                   onClick={handleStartJourney}
                   className="bg-white text-black px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
                 >
-                  Get Started
+                  Analyze Resume
                 </button>
               </div>
             </div>
@@ -335,7 +335,7 @@ function App() {
                 onClick={handleStartJourney}
                 className="bg-white text-black block px-3 py-2 rounded-xl text-base font-medium mx-3 mt-4"
               >
-                Get Started
+                Analyze Resume
               </button>
             </div>
           </div>
@@ -362,7 +362,7 @@ function App() {
                     onClick={handleStartJourney}
                     className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center"
                   >
-                    Start Your Journey
+                    Analyze Resume
                     <ArrowRightIcon className="ml-2 h-5 w-5" />
                   </button>
                 </div>
