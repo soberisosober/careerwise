@@ -228,30 +228,6 @@ function App() {
     }
   ];
 
-  /*const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Marketing Manager",
-      company: "TechCorp",
-      content: "Career helped me transition from retail to tech marketing. Their guidance was invaluable in landing my dream job with a 40% salary increase.",
-      rating: 5
-    },
-    {
-      name: "Michael Chen",
-      role: "Software Engineer",
-      company: "InnovateLabs",
-      content: "The interview prep sessions were game-changing. I went from nervous candidate to confident professional, securing offers from 3 top companies.",
-      rating: 5
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Operations Director",
-      company: "Global Dynamics",
-      content: "Their career coaching helped me identify my leadership potential and develop the skills needed to advance to a director-level position.",
-      rating: 5
-    }
-  ];*/
-
   const stats = [
     { number: "2,500+", label: "Careers Transformed" },
     { number: "95%", label: "Success Rate" },
@@ -333,7 +309,6 @@ function App() {
                 <a href="#home" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Home</a>
                 <a href="#services" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Services</a>
                 <a href="#about" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">About</a>
-                <a href="#testimonials" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Success Stories</a>
                 <button
                   onClick={handleStartJourney}
                   className="bg-white text-black px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
@@ -359,7 +334,6 @@ function App() {
               <a href="#home" className="text-white block px-3 py-2 text-base font-medium">Home</a>
               <a href="#services" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Services</a>
               <a href="#about" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">About</a>
-              <a href="#testimonials" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Success Stories</a>
               <button
                 onClick={handleStartJourney}
                 className="bg-white text-black block px-3 py-2 rounded-xl text-base font-medium mx-3 mt-4"
@@ -615,37 +589,6 @@ function App() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Success Stories
-            </h2>
-            <p className="text-xl text-gray-600">
-              Hear from professionals who transformed their careers with CareerWise
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6 leading-relaxed">"{testimonial.content}"</p>
-                <div className="border-t pt-4">
-                  <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  <p className="text-sm text-blue-600">{testimonial.company}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -792,7 +735,6 @@ function App() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
               </ul>
