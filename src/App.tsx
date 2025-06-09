@@ -298,10 +298,7 @@ function App() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 mb-4">
-                  <SwatchIcon className="h-8 w-8 text-white" />
-                </div>
-                <span className="ml-2 text-2xl font-bold text-white">CareerWise</span>
+                <span className="text-2xl font-bold text-white">CareerWise</span>
               </div>
             </div>
             <div className="hidden md:block">
@@ -473,19 +470,19 @@ function App() {
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                Personalized Service
+                Filtered Candidates based on algorithmic similarites.
               </li>
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                98% Offer Acceptance Rate
+                Captures underlying requirements for the role.
               </li>
               <li className="flex items-center text-white text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-yellow-300">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#FFEB3B"/><path stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                No Upfront Fees
+                Provides Automated Response. 
               </li>
             </ul>
           </div>
@@ -507,19 +504,19 @@ function App() {
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                4/5 Candidates Get Hired
+                Security for Document Prevention
               </li>
               <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                Career Coaching
+                Career Recommendation
               </li>
               <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                Interview Preparation
+                Captures both syntactical and semantical structures.  
               </li>
             </ul>
           </div>
@@ -610,7 +607,7 @@ function App() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
-                    <p className="text-gray-600">+92 (700) 490-2320</p>
+                    <p className="text-gray-600">+91 (700) 490-2320</p>
                   </div>
                 </div>
                 <div className="flex items-center">
