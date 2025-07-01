@@ -28,6 +28,10 @@ import { get_JobRecommendations } from './utils/resumeParser';
 import JobRecommendations from './components/JobRecommendations';
 import ImageWithPlaceholder from './components/ImageWithPlaceholder';
 import { supabase } from './supabaseClient';
+import ATSScoringModal from './components/ATSScoringModal';
+import ATSResults from './components/ATSResults';
+import ATSScoreBreakdownComponent from './components/ATSScoreBreakdown';
+import { calculateATSScore, generateRecommendations, ATSAnalysisResult } from './utils/atsScoring';
 
 // Sample analysis data
 const sampleAnalysis = {
@@ -144,6 +148,9 @@ function App() {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [authError, setAuthError] = useState('');
+  const [showATSModal, setShowATSModal] = useState(false);
+  const [atsResults, setATSResults] = useState<ATSAnalysisResult | null>(null);
+  const [showATSResults, setShowATSResults] = useState(false);
 
   const processingSteps = [
     { text: "Uploading File", duration: 1000 },
@@ -313,6 +320,28 @@ function App() {
     }
   };
 
+  const handleATSScoring = (resumeText: string, jobDescription: string) => {
+    try {
+      const analysisResult = calculateATSScore(resumeText, jobDescription);
+      setATSResults(analysisResult);
+      setShowATSModal(false);
+      setShowATSResults(true);
+    } catch (error) {
+      console.error('Error calculating ATS score:', error);
+    }
+  };
+
+  const handleATSRetest = () => {
+    setShowATSResults(false);
+    setATSResults(null);
+    setShowATSModal(true);
+  };
+
+  const handleCloseATSResults = () => {
+    setShowATSResults(false);
+    setATSResults(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-columbia_blue-600 to-columbia_blue-800">
       {/* Navigation */}
@@ -329,6 +358,12 @@ function App() {
                 <a href="#home" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Home</a>
                 <a href="#services" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">Services</a>
                 <a href="#about" className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors">About</a>
+                <button
+                  onClick={() => setShowATSModal(true)}
+                  className="text-white hover:text-gray-300 px-3 py-2 text-sm font-medium transition-colors"
+                >
+                  ATS Score
+                </button>
                 <button
                   onClick={() => setShowAuthModal(true)}
                   className="bg-white text-black px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-100 transition-colors"
@@ -354,6 +389,12 @@ function App() {
               <a href="#home" className="text-white block px-3 py-2 text-base font-medium">Home</a>
               <a href="#services" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">Services</a>
               <a href="#about" className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium">About</a>
+              <button
+                onClick={() => setShowATSModal(true)}
+                className="text-white hover:text-gray-300 block px-3 py-2 text-base font-medium"
+              >
+                ATS Score
+              </button>
               <button
                 onClick={() => setShowAuthModal(true)}
                 className="bg-white text-black block px-3 py-2 rounded-xl text-base font-medium mx-3 mt-4"
@@ -432,13 +473,20 @@ function App() {
                 Explore the latest roles in data, engineering, product, and beyond.
               </p>
               {!isResumeUploaded && !showResumeModal && (
-                <div className="flex justify-center mt-16">
+                <div className="flex justify-center space-x-4 mt-16">
                   <button
                     onClick={handleStartJourney}
                     className="bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center"
                   >
                     Analyze Resume
                     <ArrowRightIcon className="ml-2 h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => setShowATSModal(true)}
+                    className="bg-green-600 text-white px-8 py-3 rounded-xl hover:bg-green-700 transition-colors flex items-center"
+                  >
+                    Check ATS Score
+                    <ChartBarIcon className="ml-2 h-5 w-5" />
                   </button>
                 </div>
               )}
@@ -585,7 +633,7 @@ function App() {
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6"><circle cx="12" cy="12" r="12" fill="#fff"/><path stroke="#1976D2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M7 13l3 3 7-7"/></svg>
                 </span>
-                Career Recommendation
+                ATS Score Analysis & Optimization
               </li>
               <li className="flex items-center text-black text-lg md:text-xl font-normal" style={{fontFamily: 'Inter, Helvetica, Arial, sans-serif'}}>
                 <span className="inline-flex items-center justify-center w-6 h-6 mr-3 text-blue-600">
@@ -800,6 +848,7 @@ function App() {
                 <li><a href="#" className="hover:text-white transition-colors">Resume Writing</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Interview Prep</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">LinkedIn Optimization</a></li>
+                <li><a href="#" className="hover:text-white transition-colors" onClick={() => setShowATSModal(true)}>ATS Score Check</a></li>
               </ul>
             </div>
             <div>
@@ -911,6 +960,28 @@ function App() {
             <div className="text-center text-sm text-gray-500">
               {Math.round(processingProgress)}% Complete
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ATS Scoring Modal */}
+      {showATSModal && (
+        <ATSScoringModal
+          isOpen={showATSModal}
+          onClose={() => setShowATSModal(false)}
+          onComplete={handleATSScoring}
+        />
+      )}
+
+      {/* ATS Results Modal */}
+      {showATSResults && atsResults && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="bg-white rounded-xl w-full max-w-7xl max-h-[95vh] overflow-y-auto">
+            <ATSResults
+              results={atsResults}
+              onRetest={handleATSRetest}
+              onClose={handleCloseATSResults}
+            />
           </div>
         </div>
       )}

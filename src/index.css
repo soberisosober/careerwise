@@ -10,3 +10,360 @@
 .animate-stats-scroll {
   animation: stats-scroll 16s linear infinite;
 }
+
+/* ATS Score Color Scheme */
+.ats-score-excellent {
+  @apply bg-green-50 text-green-700 border-green-200;
+}
+
+.ats-score-good {
+  @apply bg-blue-50 text-blue-700 border-blue-200;
+}
+
+.ats-score-fair {
+  @apply bg-yellow-50 text-yellow-700 border-yellow-200;
+}
+
+.ats-score-poor {
+  @apply bg-red-50 text-red-700 border-red-200;
+}
+
+.ats-progress-excellent {
+  @apply bg-green-500;
+}
+
+.ats-progress-good {
+  @apply bg-blue-500;
+}
+
+.ats-progress-fair {
+  @apply bg-yellow-500;
+}
+
+.ats-progress-poor {
+  @apply bg-red-500;
+}
+
+/* Progress Bar Animations */
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: var(--progress-width); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+}
+
+.ats-progress-animated {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+.ats-progress-pulse {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Hover Effects for Interactive Elements */
+.ats-card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer;
+}
+
+.ats-button-hover {
+  @apply transition-all duration-200 hover:scale-105 hover:shadow-md;
+}
+
+.ats-category-hover {
+  @apply transition-all duration-200 hover:bg-gray-50 hover:border-gray-300;
+}
+
+/* Responsive Breakpoints for ATS Components */
+.ats-grid-responsive {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.ats-grid-breakdown {
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4;
+}
+
+.ats-layout-mobile {
+  @apply flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4;
+}
+
+/* Card Styling for Score Display Sections */
+.ats-score-card {
+  @apply bg-white rounded-xl shadow-lg border-2 p-6 transition-all duration-300;
+}
+
+.ats-score-card-large {
+  @apply bg-white rounded-2xl shadow-xl border-2 p-8 text-center;
+}
+
+.ats-breakdown-card {
+  @apply bg-white rounded-lg shadow-md border border-gray-200 p-4 hover:shadow-lg transition-shadow duration-300;
+}
+
+.ats-recommendation-card {
+  @apply bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border-l-4 border-blue-500;
+}
+
+/* Button Styling for ATS-specific Actions */
+.ats-button-primary {
+  @apply bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium flex items-center justify-center;
+}
+
+.ats-button-secondary {
+  @apply bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-all duration-200 font-medium;
+}
+
+.ats-button-success {
+  @apply bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all duration-200 font-medium;
+}
+
+.ats-button-warning {
+  @apply bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition-all duration-200 font-medium;
+}
+
+.ats-button-danger {
+  @apply bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-all duration-200 font-medium;
+}
+
+.ats-button-outline {
+  @apply border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200;
+}
+
+/* Modal Overlay Styles for ATS Scoring Workflow */
+.ats-modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4;
+}
+
+.ats-modal-container {
+  @apply bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl;
+}
+
+.ats-modal-large {
+  @apply bg-white rounded-xl w-full max-w-6xl max-h-[95vh] overflow-y-auto shadow-2xl;
+}
+
+.ats-modal-header {
+  @apply flex justify-between items-center p-6 border-b border-gray-200;
+}
+
+.ats-modal-content {
+  @apply p-6;
+}
+
+.ats-modal-footer {
+  @apply p-6 border-t border-gray-200 flex justify-end space-x-3;
+}
+
+/* Typography Classes for Score Displays and Recommendations */
+.ats-score-display {
+  @apply text-4xl font-bold text-gray-900;
+}
+
+.ats-score-display-large {
+  @apply text-6xl font-bold text-gray-900;
+}
+
+.ats-score-label {
+  @apply text-lg font-semibold text-gray-700;
+}
+
+.ats-score-status {
+  @apply text-xl font-bold;
+}
+
+.ats-category-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+.ats-category-score {
+  @apply text-sm font-bold px-2 py-1 rounded;
+}
+
+.ats-recommendation-title {
+  @apply text-base font-semibold text-gray-900 mb-2;
+}
+
+.ats-recommendation-text {
+  @apply text-sm text-gray-700 leading-relaxed;
+}
+
+.ats-detail-text {
+  @apply text-xs text-gray-600;
+}
+
+.ats-priority-high {
+  @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.ats-priority-medium {
+  @apply bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.ats-priority-low {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+/* Utility Classes for Spacing and Layout of ATS Components */
+.ats-section-spacing {
+  @apply space-y-8;
+}
+
+.ats-component-spacing {
+  @apply space-y-6;
+}
+
+.ats-item-spacing {
+  @apply space-y-4;
+}
+
+.ats-tight-spacing {
+  @apply space-y-2;
+}
+
+.ats-flex-center {
+  @apply flex items-center justify-center;
+}
+
+.ats-flex-between {
+  @apply flex items-center justify-between;
+}
+
+.ats-flex-start {
+  @apply flex items-start;
+}
+
+.ats-grid-auto {
+  @apply grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.ats-container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.ats-content-width {
+  @apply max-w-4xl mx-auto;
+}
+
+/* Progress Bar Container */
+.ats-progress-container {
+  @apply relative w-full bg-gray-200 rounded-full h-3 overflow-hidden;
+}
+
+.ats-progress-bar {
+  @apply h-full transition-all duration-700 ease-out rounded-full;
+}
+
+/* Step Indicator Styles */
+.ats-step-indicator {
+  @apply flex items-center justify-center w-8 h-8 rounded-full font-medium text-sm;
+}
+
+.ats-step-active {
+  @apply bg-blue-600 text-white;
+}
+
+.ats-step-completed {
+  @apply bg-green-600 text-white;
+}
+
+.ats-step-inactive {
+  @apply bg-gray-300 text-gray-600;
+}
+
+.ats-step-line {
+  @apply flex-1 h-1 mx-4;
+}
+
+.ats-step-line-active {
+  @apply bg-green-600;
+}
+
+.ats-step-line-inactive {
+  @apply bg-gray-300;
+}
+
+/* Drag and Drop Styles */
+.ats-dropzone {
+  @apply border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-colors duration-200;
+}
+
+.ats-dropzone-active {
+  @apply border-blue-500 bg-blue-50;
+}
+
+/* Tooltip Styles */
+.ats-tooltip {
+  @apply absolute z-50 bg-gray-900 text-white text-sm p-2 rounded shadow-lg max-w-xs pointer-events-none;
+}
+
+/* Animation Keyframes */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ats-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.ats-slide-up {
+  animation: slide-up 0.4s ease-out;
+}
+
+.ats-bounce-in {
+  animation: bounce-in 0.6s ease-out;
+}
+
+/* Loading Spinner for ATS Components */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ats-spinner {
+  @apply inline-block w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full;
+  animation: spin 1s linear infinite;
+}
+
+.ats-spinner-large {
+  @apply inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full;
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive Text Sizes for ATS Components */
+@media (max-width: 640px) {
+  .ats-score-display-large {
+    @apply text-4xl;
+  }
+  
+  .ats-score-display {
+    @apply text-3xl;
+  }
+  
+  .ats-modal-container {
+    @apply mx-2;
+  }
+}
+
+@media (max-width: 768px) {
+  .ats-grid-breakdown {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+  
+  .ats-layout-mobile {
+    @apply flex-col space-y-4;
+  }
+}
